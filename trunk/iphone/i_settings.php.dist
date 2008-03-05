@@ -1,0 +1,54 @@
+<?php
+/*
+	Copyright 2008 Christopher P Carey (http://chriscarey.com)
+	This program is distributed under the terms of the GNU General Public License
+	
+	This file is part of Asterisk Voicemail for iPhone.
+
+    Asterisk Voicemail for iPhone is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Foobar is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Asterisk Voicemail for iPhone.
+	If not, see <http://www.gnu.org/licenses/>.
+*/
+
+$g_debug = true;
+
+// voicemail.conf authentication
+$g_voicemail_conf_path = "/etc/asterisk/voicemail.conf";
+
+// Database Settings for authentication. We either authenticate from voicemail.conf, or the database
+$g_use_database = false;
+$g_db_host = "localhost";
+$g_db_name = "asterisk";
+$g_db_user = "";
+$g_db_pass = "";
+
+// The URL to your iphone web app	
+$g_app_root = "http://10.1.1.20/iphone/";
+
+// Where on your filesystem is the smarty root folder
+$g_smarty_root = "/var/www/smarty/";
+
+// this is the folder under smarty/templates where you have the tpl files
+// so in this case it would be smarty/templates/smarty-iphone
+$g_smarty_template_folder = "smarty-iphone/"; 
+
+// The URL where we can access the voicemail boxes through apache
+// ** This is not secure and will be removed on a future release **
+// Set this up in Apache with the command:
+// Alias /messages /var/spool/asterisk/voicemail/default
+$g_apache_messages_alias = "http://10.1.1.20/messages/";
+
+// The filesystem path where the voicemail files are found
+$g_voicemail_context_path = "/var/spool/asterisk/voicemail/default/";
+
+?>
