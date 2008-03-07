@@ -4,7 +4,7 @@
 Copyright 2008 Chris Carey (http://chriscarey.com). 
 This program is distributed under the terms of the GNU General Public License
 
-= Development: ChangeLog (History) =
+== Development: ChangeLog ==
 
 ===2008-03-06 (v0.04 release)===
   * Added preliminary support for Settings screen. It will now load name,pass,email from MySQL or voicemail.conf
