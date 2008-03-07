@@ -1,5 +1,74 @@
 #summary Installation Guide.
 
+
+
+Asterisk Voicemail for iPhone
+Copyright 2008 Chris Carey (http://chriscarey.com)
+This program is distributed under the terms of the GNU General Public License
+
+==============================================================================
+Install Guide
+==============================================================================
+
+ default user and group to asterisk. For the software to be able to delete and move messages,
+it must have read/write access to all the asterisk files. This accomplishes that.
+
+For me, /var/lib/php5 needed to be chowned to asterisk for session_start() to work. There may
+be other folders that need to be chowned to asterisk due to the web server running as asterisk.
+Check your apache error log for messages.
+
+== Dependency Install ==
+
+
+Install Smarty on your web server. This is a PHP template system.
+I created a folder named /iphone/ underneath /templates/
+
+Install Lame on your web server (for mp3 creation)
+
+Install iUI in a subfolder named 'iui' inside the application folder
+I have the iphone app at /iphone/ so iUI is installed at /iphone/iui/
+
+
+== Install Smarty Templates in smarty templates folder ==
+
+iphone/login.tpl
+iphone/main.tpl
+
+
+==Install files in the application folder==
+
+iphone/delete.php
+iphone/i_db.php
+iphone/i_functions.php
+iphone/i_settings.php
+iphone/index.php
+iphone/listen.php
+iphone/logout.php
+iphone/main.php
+iphone/readme.txt
+iphone/install.txt
+
+------------------------------------
+Customize i_settings.php
+------------------------------------
+
+copy i_settings.php.dist to i_settings.php
+
+You must edit this file with correct paths and options
+
+------------------------------------
+All Done!!
+------------------------------------
+
+contact me with any questions or if you get stuck
+
+--
+Chris Carey
+chris@chriscarey.com
+
+
+
+
 = Introduction =
 
 Add your content here.
