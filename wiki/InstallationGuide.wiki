@@ -59,9 +59,3 @@ copy i_settings.php.dist to i_settings.php
 You must edit this file with correct paths and options
 
 == All Done!! ==
-
-contact me with any questions or if you get stuck
-
---
-Chris Carey
-chris@chriscarey.com
