@@ -22,10 +22,13 @@
 
 $g_debug = true;
 
+// true for MySQL, false to use voicemail.conf for authentication
+$g_use_database = false;
+
 // voicemail.conf authentication
 $g_voicemail_conf_path = "/etc/asterisk/voicemail.conf";
 
-// Database Settings for authentication. We either authenticate from voicemail.conf, or the database
+// Database Settings for authentication.
 $g_use_database = false;
 $g_db_host = "localhost";
 $g_db_name = "asterisk";
@@ -39,8 +42,8 @@ $g_app_root = "http://10.1.1.20/iphone/";
 $g_smarty_root = "/var/www/smarty/";
 
 // this is the folder under smarty/templates where you have the tpl files
-// so in this case it would be smarty/templates/smarty-iphone
-$g_smarty_template_folder = "smarty-iphone/"; 
+// so in this case it would be smarty/templates/iphone
+$g_smarty_template_folder = "iphone/"; 
 
 // The URL where we can access the voicemail boxes through apache
 // ** This is not secure and will be removed on a future release **

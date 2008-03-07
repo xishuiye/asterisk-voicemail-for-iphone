@@ -21,7 +21,7 @@
 */
 
 	$g_app_name = "Asterisk Voicemail for iPhone";
-	$g_app_version = "0.03";
+	$g_app_version = "0.04";
 
 	require_once("i_db.php");
 	require_once("i_settings.php");
@@ -65,6 +65,9 @@
 	$arr_messages = GetMessageArray("INBOX", $s_mailbox);
 	$arr_messages_old = GetMessageArray("Old", $s_mailbox);
 	
+	// Get Settings Screen info
+	$c_settings = GetSettings($s_mailbox);
+	
 	// Assign variables into Smarty for the template
 	$smarty->assign('app_name', $g_app_name);
 	$smarty->assign('app_version', $g_app_version);
@@ -75,6 +78,7 @@
 	$smarty->assign('messages', $arr_messages);
 	$smarty->assign('messages_old', $arr_messages_old);
 	$smarty->assign('apache_messages_alias', $g_apache_messages_alias);
+	$smarty->assign('c_settings', $c_settings);
 	
 	// Display the smarty template
 	$smarty->display($g_smarty_template_folder.'main.tpl');

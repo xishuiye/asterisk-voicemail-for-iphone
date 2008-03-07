@@ -33,7 +33,6 @@ function doVoicemailConfAuthentication($p_mailbox, $p_password) {
 	
 	// cat the voicemail.conf file, grep for mailbox
 	$cmd = "cat ".$g_voicemail_conf_path." | grep ".$p_mailbox;
-	//$last_line = system($cmd, $retval);
 	$last_line = exec($cmd, $retvalue);
 	// parse out the info - 1001 => 1001,Chris Carey,chris@chriscarey.com
 	list($mailbox, $everything_else) = split('=>', $last_line);
@@ -46,6 +45,60 @@ function doVoicemailConfAuthentication($p_mailbox, $p_password) {
 		$success = true;
 	}
 	return $success;
+}
+
+function getSettings($p_mailbox) {
+	global $g_use_database;
+	global $g_voicemail_conf_path;
+	
+	if ($g_use_database == true) {
+	
+		// Authenticate with Database
+		$my_db = new DB();
+		$my_db->construct($g_db_host, $g_db_name, $g_db_user, $g_db_pass);
+		$my_db->connect();
+		$my_db->select();
+		
+		$sql = "SELECT uniqueid,password,fullname,email,saycid,envelope,sendvoicemail,delete FROM voicemail WHERE mailbox='$p_mailbox';";
+		if ($debug) echo("SQL: $sql<br />\n");
+		
+		$result = $my_db->query($sql);
+		if ($result) {
+			if (mysql_num_rows($result) > 0) {
+				$row = mysql_fetch_array($result);
+				$temp['FullName'] = $row['fullname'];
+				$temp['Password'] = $row['password'];
+				$temp['SayCallerId'] = $row['saycid'];
+				$temp['Envelope'] = $row['envelope'];
+				$temp['Email'] = $row['email'];
+				$temp['SendToEmail'] = $row['sendvoicemail'];
+				$temp['DeleteAfterEmail'] = $row['delete'];
+			}
+			mysql_free_result($result);
+		}
+		$my_db->disconnect();
+		
+		
+	} else {
+	
+		// cat the voicemail.conf file, grep for mailbox
+		$cmd = "cat ".$g_voicemail_conf_path." | grep ".$p_mailbox;
+		$last_line = exec($cmd, $retvalue);
+		// parse out the info - 1001 => 1001,Chris Carey,chris@chriscarey.com
+		list($mailbox, $everything_else) = split('=>', $last_line);
+		list($password,$name,$email) = split(",", $everything_else);
+	
+		// Settings from voicemail.conf
+		$temp['FullName'] = $name;
+		$temp['Password'] = $password;
+		$temp['SayCallerId'] = "true";
+		$temp['Envelope'] = "true";
+		$temp['Email'] = $email;
+		$temp['SendToEmail'] = "true";
+		$temp['DeleteAfterEmail'] = "true";
+	}
+	
+	return $temp;
 }
 
 function GetMessageArray($vm_folder, $vm_mailbox) {
