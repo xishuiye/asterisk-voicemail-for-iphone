@@ -6,8 +6,6 @@ This program is distributed under the terms of the GNU General Public License
 ==============================================================================		
 Development: Known Issues
 ==============================================================================
-
-- Need to write voicemail.conf authentication. We only have a stub function which does no authentication. This is because on my dev server I am using mysql authentication. MySQL authentication is functional. This is one area where I could use some assistance. The voicemail.conf login function is in i_functions.php and needs some work.
 			
 - Listening to messages is done in an unsecure way. We are adding an apache alias which anyone can go to the URL and listen. Need to write a php page which will perform session/security checks and pass the mp3 sound file through. The iPhone quicktime interface grabs the music in chunks which I am not sure how to handle (sample code in listen.php is a good head start, but it needs to be fixed)
 			
@@ -16,6 +14,12 @@ Development: Known Issues
 ==============================================================================
 Development: ChangeLog (History)
 ==============================================================================
+
+2008-03-06 (v0.04 release)
+- Added preliminary support for Settings screen. It will now load name,pass,email from MySQL or voicemail.conf
+
+2008-03-05 (v0.03 release)
+- Prepared for posting on Google Code
 
 2008-03-04 (v0.02 release)
 - Write preliminary function for voicemail.conf authentication

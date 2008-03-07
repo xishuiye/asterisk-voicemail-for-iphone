@@ -94,7 +94,7 @@
 		} else {
 		
 			// Authenticate with voicemail.conf
-			if (doVoicemailConfAuthentication($p_mailbox)) {
+			if (doVoicemailConfAuthentication($p_mailbox, $p_password)) {
 				$login_success = true;
 			} else {
 				$login_success = false;
