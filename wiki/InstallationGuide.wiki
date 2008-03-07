@@ -48,6 +48,7 @@ iphone/i_settings.php
 iphone/index.php
 iphone/listen.php
 iphone/logout.php
+iphone/main.js
 iphone/main.php
 iphone/readme.txt
 iphone/install.txt
