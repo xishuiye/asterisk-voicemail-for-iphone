@@ -27,23 +27,23 @@ For me, /var/lib/php5 needed to be chowned to asterisk for session_start() to wo
 
 == Install Smarty Templates in smarty templates folder ==
 
-iphone/login.tpl
-iphone/main.tpl
+  * iphone/login.tpl
+  * iphone/main.tpl
 
 
 ==Install files in the application folder==
 
-iphone/delete.php
-iphone/i_db.php
-iphone/i_functions.php
-iphone/i_settings.php
-iphone/index.php
-iphone/listen.php
-iphone/logout.php
-iphone/main.js
-iphone/main.php
-iphone/readme.txt
-iphone/install.txt
+  * iphone/delete.php
+  * iphone/i_db.php
+  * iphone/i_functions.php
+  * iphone/i_settings.php
+  * iphone/index.php
+  * iphone/listen.php
+  * iphone/logout.php
+  * iphone/main.js
+  * iphone/main.php
+  * iphone/readme.txt
+  * iphone/install.txt
 
 ==Customize i_settings.php==
 
