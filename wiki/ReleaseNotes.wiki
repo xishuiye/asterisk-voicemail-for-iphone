@@ -7,7 +7,7 @@ This program is distributed under the terms of the GNU General Public License
 == Development Change Log ==
 
 ===2008-03-06 (v0.04 release)===
-  * Added preliminary support for Settings screen. It will now load name,pass,email from MySQL or voicemail.conf
+  * Added preliminary support for Settings screen. It will now load name, pass, email from MySQL or voicemail.conf
 
 ===2008-03-05 (v0.03 release)===
   * Prepared for posting on Google Code
