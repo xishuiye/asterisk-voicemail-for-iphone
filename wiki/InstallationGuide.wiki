@@ -1,16 +1,23 @@
 #summary Installation Guide.
 
-
-
 Asterisk Voicemail for iPhone
+
 Copyright 2008 Chris Carey (http://chriscarey.com)
+
 This program is distributed under the terms of the GNU General Public License
 
-==============================================================================
-Install Guide
-==============================================================================
+==Install Guide==
 
- default user and group to asterisk. For the software to be able to delete and move messages,
+Please excuse this sloppy install. Due to popular demand, I am releasing alpha
+versions of this software in order to get it cleaned up for a proper release.
+
+== Apache Setup ==
+
+You need to set up a /messages/ Alias for listening to messages
+In your apache conf file add:
+Alias /messages /var/spool/asterisk/voicemail/default
+
+Change apache default user and group to asterisk. For the software to be able to delete and move messages,
 it must have read/write access to all the asterisk files. This accomplishes that.
 
 For me, /var/lib/php5 needed to be chowned to asterisk for session_start() to work. There may
