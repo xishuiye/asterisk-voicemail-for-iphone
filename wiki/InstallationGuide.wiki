@@ -17,12 +17,9 @@ You need to set up a /messages/ Alias for listening to messages
 In your apache conf file add:
 Alias /messages /var/spool/asterisk/voicemail/default
 
-Change apache default user and group to asterisk. For the software to be able to delete and move messages,
-it must have read/write access to all the asterisk files. This accomplishes that.
+Change apache default user and group to asterisk. For the software to be able to delete and move messages, it must have read/write access to all the asterisk files. This accomplishes that.
 
-For me, /var/lib/php5 needed to be chowned to asterisk for session_start() to work. There may
-be other folders that need to be chowned to asterisk due to the web server running as asterisk.
-Check your apache error log for messages.
+For me, /var/lib/php5 needed to be chowned to asterisk for session_start() to work. There may be other folders that need to be chowned to asterisk due to the web server running as asterisk. Check your apache error log for messages.
 
 == Dependency Install ==
 
@@ -55,35 +52,16 @@ iphone/main.php
 iphone/readme.txt
 iphone/install.txt
 
-------------------------------------
-Customize i_settings.php
-------------------------------------
+==Customize i_settings.php==
 
 copy i_settings.php.dist to i_settings.php
 
 You must edit this file with correct paths and options
 
-------------------------------------
-All Done!!
-------------------------------------
+== All Done!! ==
 
 contact me with any questions or if you get stuck
 
 --
 Chris Carey
 chris@chriscarey.com
-
-
-
-
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
