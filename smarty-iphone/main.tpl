@@ -54,30 +54,18 @@
 		<li ><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
 		<li class="group">Detail</li>
 		<h3 style="padding-left:10px;">
-		<table>
-			<tr>
-				<th style="text-align:right">CID:</th>
-				<td><span style="color:darkblue;">{$i.calleridname}</span></td>
-			</tr>
-			<tr>
-				<th style="text-align:right">Phone:</th>
-				<td><span style="color:darkblue;">{$i.calleridnumber}</span></td>
-			</tr>
-			<tr>
-				<th style="text-align:right">Length:</th>
-				<td><span style="color:darkblue;">{$i.duration} seconds</span></td>
-			</tr>
-			<tr>
-				<th style="text-align:right">Date:</th>
-				<td><span style="color:darkblue;">{$i.datetimebetter}</span></td>
-			</tr>
-		</table>
+			<div style="text-align:center;color:darkblue;padding-right:20px;">
+			<div style="font-size:32px;">{$i.calleridname}</div>
+			<div style="font-size:32px;">{$i.calleridnumber}</div>
+			<div style="font-size:24px;">Duration: {$i.duration} seconds</div>
+			<div style="font-size:24px;">{$i.datetimebetter}</div>
+			</div>
 		</h3>
     </ul> 
 	
 	<ul id="inbox_{$i.file}_move" title="Move Message">  
 		<li class="group">Move Message</li>
-		<li ><a href="#" target="_self">To Saved</a></li>
+		<li ><a href="#" onclick="doMove('{$i.file}','INBOX/{$i.file}','Old');return true;">To Saved</a></li>
 	</ul>
 {/foreach}
 
@@ -85,35 +73,23 @@
     <ul id="old_{$i.file}" title="Message Detail">
 		<li class="group">Action</li>
         <li ><a href="{$apache_messages_alias}{$mailbox}/Old/{$i.file}.mp3" target="_self">Play Message</a></li>
-		<li ><a href="#old_{$i.file}_move" target="_self">Move Message</a></li>
+		<li ><a href="#old_{$i.file}_move">Move Message</a></li>
 		<li ><a href="#delete" onclick="doDelete('{$i.file}','Old/{$i.file}');return true;">Delete Message</a></li>
 		<li ><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
 		<li class="group">Detail</li>
 		<h3 style="padding-left:10px;">
-		<table>
-			<tr>
-				<th style="text-align:right">CID:</th>
-				<td><span style="color:darkblue;">{$i.calleridname}</span></td>
-			</tr>
-			<tr>
-				<th style="text-align:right">Phone:</th>
-				<td><span style="color:darkblue;">{$i.calleridnumber}</span></td>
-			</tr>
-			<tr>
-				<th style="text-align:right">Length:</th>
-				<td><span style="color:darkblue;">{$i.duration} seconds</span></td>
-			</tr>
-			<tr>
-				<th style="text-align:right">Date:</th>
-				<td><span style="color:darkblue;">{$i.datetimebetter}</span></td>
-			</tr>
-		</table>
+		<div style="text-align:center;color:darkblue;padding-right:20px;">
+			<div style="font-size:32px;">{$i.calleridname}</div>
+			<div style="font-size:32px;">{$i.calleridnumber}</div>
+			<div style="font-size:24px;">Duration: {$i.duration} seconds</div>
+			<div style="font-size:24px;">{$i.datetimebetter}</div>
+			</div>
 		</h3>
     </ul>  
 	
 	<ul id="old_{$i.file}_move" title="Move Message">  
 		<li class="group">Move Message</li>
-		<li ><a href="#" target="_self">To Inbox</a></li>
+		<li ><a href="#" onclick="doMove('{$i.file}','Old/{$i.file}','INBOX');return true;">To Inbox</a></li>
 	</ul> 
 
 {/foreach}
@@ -136,6 +112,10 @@
 		<a style="margin-top:30px;margin-left:0px;" class="button" href="main.php" target="_self">Touch here twice for Main Menu</a>
     </div>
     
+	<div id="move" class="panel" title="Message Moved">
+        <h2>Message has been moved.</h2>		
+		<a style="margin-top:30px;margin-left:0px;" class="button" href="main.php" target="_self">Touch here twice for Main Menu</a>
+    </div>
  
 	<div id="settings" title="Settings" class="panel">
 		<h2>User</h2>

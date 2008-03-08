@@ -35,7 +35,7 @@
 	
 	// Application Variables
 	$g_app_name = "Asterisk Voicemail for iPhone";
-	$g_app_version = "0.06";
+	$g_app_version = "0.07";
 	$smarty->assign('app_name', $g_app_name);
 	$smarty->assign('app_version', $g_app_version);
 	
@@ -45,7 +45,6 @@
 	doSessionCheck($s_mailbox);
 	$smarty->assign('mailbox', $s_mailbox);
 	$smarty->assign('mailbox_formatted', format_phone($s_mailbox));
-	//$smarty->assign('fullname', $s_fullname);
 	
 	// Get messages (into an array)
 	$arr_messages_inbox = GetMessageArray("INBOX", $s_mailbox);
