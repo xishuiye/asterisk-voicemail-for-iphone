@@ -6,6 +6,11 @@ This program is distributed under the terms of the GNU General Public License
 
 == Development Change Log ==
 
+===2008-03-07 (v0.05 release)===
+  * Added Check for Updates
+  * Added GUI for "Move Message" support
+  * Cleaned up code in index.php and main.php a lot
+
 ===2008-03-06 (v0.04 release)===
   * Added preliminary support for Settings screen. It will now load name, pass, email from MySQL or voicemail.conf
 
