@@ -10,6 +10,7 @@ This program is distributed under the terms of the GNU General Public License
   * Added Check for Updates
   * Added GUI for "Move Message" support
   * Cleaned up code in index.php and main.php a lot
+  * Moved "g_default_prefix" to i_settings.php. You must copy a new i_settings.php.dist for this version
 
 ===2008-03-06 (v0.04 release)===
   * Added preliminary support for Settings screen. It will now load name, pass, email from MySQL or voicemail.conf
