@@ -437,13 +437,57 @@ function getTxtFiles($path) {
 	return $arrFiles;
 }
 
+function DeleteMessages($p_mailbox, $p_arrCheckBox) {
+
+	global $g_debug;
+	global $g_voicemail_context_path;
+	
+	// Get the paths set up
+	$voicemail_mailbox_path = $g_voicemail_context_path . $p_mailbox."/";
+	
+	// Open the voicemail directory and look for files
+	if (is_dir($voicemail_mailbox_path)) {
+		$size_delete_array = sizeof($p_arrCheckBox);
+		for($i=0;$i<$size_delete_array;$i++) {
+			foreach(glob($voicemail_mailbox_path . $p_arrCheckBox[$i] . "*") as $fn) {
+				if ($debug) printf("will unlink %s<br />\n", $fn);
+				unlink($fn);
+			}
+		}
+	}
+}
+
+function MoveMessage($p_mailbox, $p_filepath, $p_newfolder, $p_file) {
+
+	global $g_debug;
+	global $g_voicemail_context_path;
+	
+	// Get the paths set up
+	$voicemail_mailbox_path = $g_voicemail_context_path . $p_mailbox."/";
+	
+	// for each file we find with the filename matching, we need to move the file
+	// to the new folder with a filename that we know will know conflict. we'll use msg9999
+	//echo("filepath " . $p_filepath);
+	// Get Current Number (Strip from name)
+	//$strFileNoExt = substr($p_filepath, 0, strpos($p_filepath, "."));
+	//if ($g_debug) echo($strFileNoExt);
+	// For each txt, wav, WAV, mp3
+	$arrExtensions = array("txt", "wav", "WAV", "mp3");
+	foreach ($arrExtensions as &$strExtension) {
+		$rename_from = $p_filepath.".".$strExtension;
+		$rename_to = $p_newfolder."/msg9999.".$strExtension;
+		
+		rename($voicemail_mailbox_path.$rename_from, $voicemail_mailbox_path.$rename_to);
+	}
+}
+
 function ReindexMessages($vm_mailbox, $vm_folder) {
 
 	// Reindex Messages
 	// This will rename voicemail files so that they start
 	// with msg0000.txt and move up to msg000n.txt
 	
-	global $debug;
+	global $g_debug;
 	global $g_voicemail_context_path;
 	$intMsgNum = 0;
 	
@@ -454,16 +498,16 @@ function ReindexMessages($vm_mailbox, $vm_folder) {
 	// Open the voicemail directory and look for files
 	if (is_dir($voicemail_folder_path)) {
 			
-		if ($debug) echo("$voicemail_folder_path<br />\n");
+		if ($g_debug) echo("$voicemail_folder_path<br />\n");
 		
 		
 		// Only if msg0000.txt is missing
-		if (file_exists($voicemail_folder_path."msg0000.txt") == false) {
+		//if (file_exists($voicemail_folder_path."msg0000.txt") == false) {
 			
 			// Get an array of all .txt files in the folder
 			$arrFiles = getTxtFiles($voicemail_folder_path);
 			$intArraySize = sizeof($arrFiles);
-			if ($debug) printf("array size: %s<br />\n", $intArraySize);
+			if ($g_debug) printf("array size: %s<br />\n", $intArraySize);
 					
 			// sort the array
 			sort($arrFiles);
@@ -485,17 +529,17 @@ function ReindexMessages($vm_mailbox, $vm_folder) {
 				foreach ($arrExtensions as &$strExtension) {
 					$rename_from = $strFileNoExt.".".$strExtension;
 					$rename_to = "msg".$strMsgNum.".".$strExtension;
-					if ($debug) printf("%s - ", $rename_from );
-					if ($debug) printf("rename to %s<br />\n", $rename_to );
+					if ($g_debug) printf("%s - ", $rename_from );
+					if ($g_debug) printf("rename to %s<br />\n", $rename_to );
 					rename($voicemail_folder_path.$rename_from, $voicemail_folder_path.$rename_to);
 				}
 
 				$intMsgNum++;
 				
 			} // for
-		} else {
-			if ($debug) printf("msg0000.txt exists. Doing nothing.<br />\n", $intArraySize);
-		} // if (file_exists)
+		//} else {
+		//	if ($g_debug) printf("msg0000.txt exists. Doing nothing.<br />\n", $intArraySize);
+		//} // if (file_exists)
 	} // if (is_dir)
 }
 

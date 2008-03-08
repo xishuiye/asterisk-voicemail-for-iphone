@@ -27,15 +27,27 @@
 	$s_mailbox = $_SESSION['mailbox'];
 		
 	// Catch
-	if (isset($_POST['message'])) $message = $_POST['message'];
-	if (isset($_GET['message'])) $message = $_GET['message'];
+	$action = ""; if (isset($_POST['action'])) $action = $_POST['action'];
+	$file = ""; if (isset($_POST['file'])) $file = $_POST['file'];
+	$filepath = ""; if (isset($_POST['filepath'])) $filepath = $_POST['filepath'];
+	$newfolder = ""; if (isset($_POST['newfolder'])) $newfolder = $_POST['newfolder'];
 	
-	if ($message) {
-		$arr = array($message);
-		
-		DeleteMessages($s_mailbox, $arr);
-		ReindexMessages($s_mailbox, "INBOX");
-		
+	if (isset($_GET['action'])) $action = $_GET['action'];
+	if (isset($_GET['file'])) $file = $_GET['file'];
+	if (isset($_GET['filepath'])) $filepath = $_GET['filepath'];
+	if (isset($_GET['newfolder'])) $newfolder = $_GET['newfolder'];
+	
+	switch($action) {
+		case "move":
+			MoveMessage($s_mailbox, $filepath, $newfolder, $file);
+			ReindexMessages($s_mailbox, "INBOX");
+			ReindexMessages($s_mailbox, "Old");
+			break;
+		case "delete":
+			$arr_files = array($filepath);
+			DeleteMessages($s_mailbox, $arr_files);
+			ReindexMessages($s_mailbox, "INBOX");
+			break;
 	}
 	
 	

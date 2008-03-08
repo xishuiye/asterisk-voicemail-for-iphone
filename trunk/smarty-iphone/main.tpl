@@ -53,7 +53,7 @@
 		<li ><a href="#delete" onclick="doDelete('{$i.file}','INBOX/{$i.file}');return true;">Delete Message</a></li>
 		<li ><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
 		<li class="group">Detail</li>
-		<h3 style="padding-left:10px;">
+		<h3 style="margin-top:7px;padding-left:10px;">
 			<div style="text-align:center;color:darkblue;padding-right:20px;">
 			<div style="font-size:32px;">{$i.calleridname}</div>
 			<div style="font-size:32px;">{$i.calleridnumber}</div>
@@ -65,7 +65,7 @@
 	
 	<ul id="inbox_{$i.file}_move" title="Move Message">  
 		<li class="group">Move Message</li>
-		<li ><a href="#" onclick="doMove('{$i.file}','INBOX/{$i.file}','Old');return true;">To Saved</a></li>
+		<li ><a href="#move" onclick="doMove('{$i.file}','INBOX/{$i.file}','Old');return true;">To Saved</a></li>
 	</ul>
 {/foreach}
 
@@ -77,7 +77,7 @@
 		<li ><a href="#delete" onclick="doDelete('{$i.file}','Old/{$i.file}');return true;">Delete Message</a></li>
 		<li ><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
 		<li class="group">Detail</li>
-		<h3 style="padding-left:10px;">
+		<h3 style="margin-top:7px;padding-left:10px;">
 		<div style="text-align:center;color:darkblue;padding-right:20px;">
 			<div style="font-size:32px;">{$i.calleridname}</div>
 			<div style="font-size:32px;">{$i.calleridnumber}</div>
@@ -89,7 +89,7 @@
 	
 	<ul id="old_{$i.file}_move" title="Move Message">  
 		<li class="group">Move Message</li>
-		<li ><a href="#" onclick="doMove('{$i.file}','Old/{$i.file}','INBOX');return true;">To Inbox</a></li>
+		<li ><a href="#move" onclick="doMove('{$i.file}','Old/{$i.file}','INBOX');return true;" >To Inbox</a></li>
 	</ul> 
 
 {/foreach}
@@ -102,7 +102,6 @@
 {if $current_version}
 		Current Version: v{$current_version}<br /><br />
 {/if}
-		
 		Homepage: <a href="http://chriscarey.com/projects/asterisk/iphone/" target="_blank">Click here</a>
 		</h2>
     </div>
