@@ -6,6 +6,11 @@ This program is distributed under the terms of the GNU General Public License
 
 == Development Change Log ==
 
+===2008-03-08 (v0.08 release)===
+  * DeleteMessages function was missing. Delete is now working
+  * Move Messages is now working
+  * Fixed Reindex Messages function
+
 ===2008-03-08 (v0.07 release)===
   * Made Message Detail screen look better
   * Made a little more progress on "Move Message" code.
