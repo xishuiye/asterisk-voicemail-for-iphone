@@ -20,40 +20,12 @@
 	If not, see <http://www.gnu.org/licenses/>.
 */
 
-	$g_app_name = "Asterisk Voicemail for iPhone";
-	$g_app_version = "0.04";
-
+	// Includes
 	require_once("i_db.php");
 	require_once("i_settings.php");
 	require_once("i_functions.php");
 	require_once($g_smarty_root.'Smarty.class.php');
 	
-	// Start Session
-	session_start();
-	
-	// Check for Cookie
-	if (isset($_COOKIE['mailbox'])) {
-		// Get Cookie
-		
-		// Setup Session from Cookie
-		$_SESSION['mailbox'] = $_COOKIE['mailbox'];
-		$_SESSION['fullname'] = $_COOKIE['fullname'];
-		
-		$s_mailbox = $_SESSION['mailbox'];
-		$s_fullname = $_SESSION['fullname'];
-		
-	} else {
-		// No Cookie, Check for Session
-		if (!isset($_SESSION['mailbox'])) {
-			// No Session, Send to the login screen
-			header("Location: ./");
-		} else {
-			// Got Session. Grab information out of the session
-			$s_mailbox = $_SESSION['mailbox'];
-			$s_fullname = $_SESSION['fullname'];
-		}
-	}
-		
 	// Set up Smarty
 	$smarty = new Smarty();
 	$smarty->template_dir = $g_smarty_root.'templates';
@@ -61,24 +33,36 @@
 	$smarty->cache_dir = $g_smarty_root.'cache';
 	$smarty->config_dir = $g_smarty_root.'configs';
 	
+	// Application Variables
+	$g_app_name = "Asterisk Voicemail for iPhone";
+	$g_app_version = "0.05";
+	$smarty->assign('app_name', $g_app_name);
+	$smarty->assign('app_version', $g_app_version);
+	
+	// Session
+	$s_mailbox = "";
+	$s_fullname = "";
+	doSessionCheck($s_mailbox);
+	$smarty->assign('mailbox', $s_mailbox);
+	$smarty->assign('mailbox_formatted', format_phone($s_mailbox));
+	//$smarty->assign('fullname', $s_fullname);
+	
 	// Get messages (into an array)
-	$arr_messages = GetMessageArray("INBOX", $s_mailbox);
+	$arr_messages_inbox = GetMessageArray("INBOX", $s_mailbox);
 	$arr_messages_old = GetMessageArray("Old", $s_mailbox);
+	$smarty->assign('messages_inbox', $arr_messages_inbox);
+	$smarty->assign('messages_old', $arr_messages_old);
 	
 	// Get Settings Screen info
 	$c_settings = GetSettings($s_mailbox);
-	
-	// Assign variables into Smarty for the template
-	$smarty->assign('app_name', $g_app_name);
-	$smarty->assign('app_version', $g_app_version);
-	$smarty->assign('mailbox', $s_mailbox);
-	$smarty->assign('mailbox_formatted', format_phone($s_mailbox));
-	$smarty->assign('mailbox_formatted_encoded', htmlspecialchars(format_phone($s_mailbox)));
-	$smarty->assign('fullname', $s_fullname);
-	$smarty->assign('messages', $arr_messages);
-	$smarty->assign('messages_old', $arr_messages_old);
-	$smarty->assign('apache_messages_alias', $g_apache_messages_alias);
 	$smarty->assign('c_settings', $c_settings);
+	
+	// Assign any global variables into Smarty
+	$smarty->assign('apache_messages_alias', $g_apache_messages_alias);
+	
+	// Check for updates
+	if ($g_check_for_updates != false) { $current_version = doCheckVersion($p_version);
+	$smarty->assign('current_version', $current_version); }
 	
 	// Display the smarty template
 	$smarty->display($g_smarty_template_folder.'main.tpl');

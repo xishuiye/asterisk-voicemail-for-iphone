@@ -28,13 +28,13 @@
 		<li class="group">Info</li>
 		<h3 style="padding-left:10px;">
 			{$app_name}<br />
-			Logged in as <span style="color:darkblue;">{$mailbox_formatted_encoded}</span><br />
+			Logged in as <span style="color:darkblue;">{$mailbox_formatted}</span><br />
 		</h3>
     </ul>
 	
     <ul id="messages" title="Messages">
         <li class="group">Inbox</li>
-{foreach from=$messages key=myId item=i}
+{foreach from=$messages_inbox key=myId item=i}
 		<li id="li_inbox_{$i.file}"><a href="#inbox_{$i.file}"><span style="color:darkblue;">{$i.calleridname}</span><br />
 		{$i.calleridnumber} ({$i.duration}sec)</a></li>
 {/foreach}
@@ -45,11 +45,11 @@
 {/foreach} 
     </ul>
 
-{foreach from=$messages key=myId item=i}
+{foreach from=$messages_inbox key=myId item=i}
     <ul id="inbox_{$i.file}" title="Message Detail">
 		<li class="group">Action</li>
         <li ><a href="{$apache_messages_alias}{$mailbox}/INBOX/{$i.file}.mp3" target="_self">Play Message</a></li>
-		<li ><a href="#" target="_self" onclick="alert('not implemented yet');">Move Message</a></li>
+		<li ><a href="#inbox_{$i.file}_move" target="_self">Move Message</a></li>
 		<li ><a href="#delete" onclick="doDelete('{$i.file}','INBOX/{$i.file}');return true;">Delete Message</a></li>
 		<li ><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
 		<li class="group">Detail</li>
@@ -73,15 +73,19 @@
 			</tr>
 		</table>
 		</h3>
-    </ul>   
-
+    </ul> 
+	
+	<ul id="inbox_{$i.file}_move" title="Move Message">  
+		<li class="group">Move Message</li>
+		<li ><a href="#" target="_self">To Saved</a></li>
+	</ul>
 {/foreach}
 
 {foreach from=$messages_old key=myId item=i}
     <ul id="old_{$i.file}" title="Message Detail">
 		<li class="group">Action</li>
         <li ><a href="{$apache_messages_alias}{$mailbox}/Old/{$i.file}.mp3" target="_self">Play Message</a></li>
-		<li ><a href="#" target="_self" onclick="alert('not implemented yet');">Move Message</a></li>
+		<li ><a href="#old_{$i.file}_move" target="_self">Move Message</a></li>
 		<li ><a href="#delete" onclick="doDelete('{$i.file}','Old/{$i.file}');return true;">Delete Message</a></li>
 		<li ><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
 		<li class="group">Detail</li>
@@ -105,7 +109,12 @@
 			</tr>
 		</table>
 		</h3>
-    </ul>   
+    </ul>  
+	
+	<ul id="old_{$i.file}_move" title="Move Message">  
+		<li class="group">Move Message</li>
+		<li ><a href="#" target="_self">To Inbox</a></li>
+	</ul> 
 
 {/foreach}
     
@@ -114,6 +123,10 @@
 		by Christopher Carey<br />
 		<a href="mailto:chris@chriscarey.com?Subject=Asterisk Voicemail for iPhone" target="_self">chris@chriscarey.com</a><br />
 		<br />
+{if $current_version}
+		Current Version: v{$current_version}<br /><br />
+{/if}
+		
 		Homepage: <a href="http://chriscarey.com/projects/asterisk/iphone/" target="_blank">Click here</a>
 		</h2>
     </div>

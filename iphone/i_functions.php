@@ -27,6 +27,105 @@
 
 */
 
+function doSessionCheck(&$s_mailbox) {
+	
+	// Start Session
+	session_start();
+	
+	// Check for Cookie
+	if (isset($_COOKIE['mailbox'])) {
+	
+		// Setup Session from Cookie
+		$_SESSION['mailbox'] = $_COOKIE['mailbox'];
+		$s_mailbox = $_SESSION['mailbox'];
+		
+	} else {
+	
+		// No Cookie, Check for Session
+		if (!isset($_SESSION['mailbox'])) {
+			// No Session, Send to the login screen
+			header("Location: ./"); 
+		} else {
+			// Got Session. Grab information out of the session
+			$s_mailbox = $_SESSION['mailbox'];
+		}
+	}
+	
+}
+
+function doCheckVersion($p_version) {
+	
+	$xml_data = "<version>".$p_version."</version>";
+	$page = "/projects/asterisk/iphone/version.php";
+	$url = "http://chriscarey.com".$page;
+	$headers = array(
+		"POST ".$page." HTTP/1.0",
+		"Content-type: text/xml;charset=\"utf-8\"",
+		"Accept: text/xml",
+		"Cache-Control: no-cache",
+		"Pragma: no-cache",
+		"Content-length: ".strlen($xml_data)
+	);
+  
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL,$url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($ch, CURLOPT_USERAGENT, $defined_vars['HTTP_USER_AGENT']);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_data);
+
+	$data = curl_exec($ch);
+
+	if (!curl_errno($ch)) {
+		curl_close($ch);
+	}
+
+	return $data;
+}
+
+function doMySqlAuthentication($p_mailbox, $p_password) {
+	
+	global $g_db_host, $g_db_name, $g_db_user, $g_db_pass;
+	
+	$login_success = false;
+	
+	// Authenticate with Database
+	$my_db = new DB();
+	$my_db->construct($g_db_host, $g_db_name, $g_db_user, $g_db_pass);
+	$my_db->connect();
+	$my_db->select();
+	
+	$sql = "SELECT uniqueid,password FROM voicemail WHERE mailbox='$p_mailbox';";
+	if ($debug) echo("SQL: $sql<br />\n");
+	$result = $my_db->query($sql);
+	if ($result) {
+		if (mysql_num_rows($result) > 0) {
+			$row = mysql_fetch_array($result);
+			$r_password = $row['password'];
+			//$r_fullname = $row['fullname'];
+			
+			if ($p_password == $r_password) {
+				$login_success = true;
+			} else {
+				//$login_success = false;
+				//$smarty->assign('mailbox_error', 'Password Incorrect');
+			}
+		} else {
+			//$login_success = false;
+			//$smarty->assign('mailbox_error', 'Mailbox Incorrect');
+		}
+	} else {
+		//$login_success = false;
+		//$smarty->assign('mailbox_error', 'Mailbox Incorrect');
+	}
+	
+	$my_db->disconnect();
+	
+	return $login_success;	
+}
+
 function doVoicemailConfAuthentication($p_mailbox, $p_password) {
 	global $g_voicemail_conf_path;
 	$success = false;
@@ -34,6 +133,7 @@ function doVoicemailConfAuthentication($p_mailbox, $p_password) {
 	// cat the voicemail.conf file, grep for mailbox
 	$cmd = "cat ".$g_voicemail_conf_path." | grep ".$p_mailbox;
 	$last_line = exec($cmd, $retvalue);
+	
 	// parse out the info - 1001 => 1001,Chris Carey,chris@chriscarey.com
 	list($mailbox, $everything_else) = split('=>', $last_line);
 	list($password,$name,$email) = split(",", $everything_else);
@@ -48,6 +148,7 @@ function doVoicemailConfAuthentication($p_mailbox, $p_password) {
 }
 
 function getSettings($p_mailbox) {
+
 	global $g_use_database;
 	global $g_voicemail_conf_path;
 	
