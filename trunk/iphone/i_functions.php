@@ -72,7 +72,7 @@ function doCheckVersion($p_version) {
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_TIMEOUT, 60);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	curl_setopt($ch, CURLOPT_USERAGENT, $defined_vars['HTTP_USER_AGENT']);
+	//curl_setopt($ch, CURLOPT_USERAGENT, $defined_vars['HTTP_USER_AGENT']);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_data);
 
@@ -151,6 +151,7 @@ function getSettings($p_mailbox) {
 
 	global $g_use_database;
 	global $g_voicemail_conf_path;
+	global $g_db_host, $g_db_name, $g_db_user, $g_db_pass;
 	
 	if ($g_use_database == true) {
 	
@@ -160,8 +161,8 @@ function getSettings($p_mailbox) {
 		$my_db->connect();
 		$my_db->select();
 		
-		$sql = "SELECT uniqueid,password,fullname,email,saycid,envelope,sendvoicemail,delete FROM voicemail WHERE mailbox='$p_mailbox';";
-		if ($debug) echo("SQL: $sql<br />\n");
+		$sql = "SELECT uniqueid,password,fullname,email,saycid,envelope,sendvoicemail,'delete' AS deleteafteremail FROM voicemail WHERE mailbox='$p_mailbox';";
+		//if ($g_debug) echo("SQL: $sql<br />\n");
 		
 		$result = $my_db->query($sql);
 		if ($result) {
@@ -173,7 +174,7 @@ function getSettings($p_mailbox) {
 				$temp['Envelope'] = $row['envelope'];
 				$temp['Email'] = $row['email'];
 				$temp['SendToEmail'] = $row['sendvoicemail'];
-				$temp['DeleteAfterEmail'] = $row['delete'];
+				$temp['DeleteAfterEmail'] = $row['deleteafteremail'];
 			}
 			mysql_free_result($result);
 		}

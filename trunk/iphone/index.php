@@ -24,7 +24,7 @@
 	require_once("i_db.php");
 	require_once("i_settings.php");
 	require_once("i_functions.php");
-	require_once($g_smarty_root.'Smarty.class.php');
+	require_once($g_smarty_class.'Smarty.class.php');
 	
 	// Local Variables
 	$debug = false;
@@ -42,10 +42,10 @@
 	if (strlen($p_mailbox) == 7) $p_mailbox = $g_default_prefix.$p_mailbox;
 	
 	$smarty = new Smarty();
-	$smarty->template_dir = $g_smarty_root.'templates';
-	$smarty->compile_dir = $g_smarty_root.'templates_c';
-	$smarty->cache_dir = $g_smarty_root.'cache';
-	$smarty->config_dir = $g_smarty_root.'configs';
+	$smarty->template_dir = $g_smarty_folder.'templates';
+	$smarty->compile_dir = $g_smarty_folder.'templates_c';
+	$smarty->cache_dir = $g_smarty_folder.'cache';
+	$smarty->config_dir = $g_smarty_folder.'configs';
 	
 	// Check for Login
 	$smarty->assign('mailbox', $p_mailbox);
