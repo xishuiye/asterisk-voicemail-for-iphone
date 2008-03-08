@@ -46,12 +46,15 @@
 	
 	// Add default_prefix if they provide 7 digits
 	if (strlen($p_mailbox) == 7) $p_mailbox = $g_default_prefix.$p_mailbox;
-	
+
+	// Set up Smarty	
 	$smarty = new Smarty();
 	$smarty->template_dir = $g_smarty_folder.'templates';
 	$smarty->compile_dir = $g_smarty_folder.'templates_c';
 	$smarty->cache_dir = $g_smarty_folder.'cache';
 	$smarty->config_dir = $g_smarty_folder.'configs';
+
+	// Assign mailbox to template
 	$smarty->assign('mailbox', $p_mailbox);
 	
 	// Check for Login
