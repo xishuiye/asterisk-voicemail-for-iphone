@@ -6,6 +6,10 @@ This program is distributed under the terms of the GNU General Public License
 
 == Development Change Log ==
 
+===2008-03-07 (v0.06 release)===
+  * After loading the code on my MySQL based server I found some DB bugs.
+  * Added a new i_setting for Smarty. Some people have the class file elsewhere.
+
 ===2008-03-07 (v0.05 release)===
   * Added Check for Updates
   * Added GUI for "Move Message" support
