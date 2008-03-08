@@ -18,6 +18,11 @@ function doDelete(message, path) {
 	makePostRequest("delete.php", message, path);
 }
 
+function doMove(message, path, newfolder) {
+	//makePostRequest("delete.php", message, path);
+	alert('will move to '+newfolder);
+}
+
 function doReload() {
 	window.location.replace = './';
 }

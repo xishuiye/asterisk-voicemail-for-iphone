@@ -29,6 +29,8 @@
 
 function doSessionCheck(&$s_mailbox) {
 	
+	// TODO: Function headers would be nice
+	
 	// Start Session
 	session_start();
 	
@@ -54,6 +56,8 @@ function doSessionCheck(&$s_mailbox) {
 }
 
 function doCheckVersion($p_version) {
+	
+	// TODO: Function headers would be nice
 	
 	$xml_data = "<version>".$p_version."</version>";
 	$page = "/projects/asterisk/iphone/version.php";
@@ -86,6 +90,8 @@ function doCheckVersion($p_version) {
 }
 
 function doMySqlAuthentication($p_mailbox, $p_password) {
+	
+	// TODO: Function headers would be nice
 	
 	global $g_db_host, $g_db_name, $g_db_user, $g_db_pass;
 	
@@ -127,6 +133,9 @@ function doMySqlAuthentication($p_mailbox, $p_password) {
 }
 
 function doVoicemailConfAuthentication($p_mailbox, $p_password) {
+
+// TODO: Function headers would be nice
+
 	global $g_voicemail_conf_path;
 	$success = false;
 	
@@ -399,12 +408,14 @@ function GetMessages($dir) {
 	return $Files;
 }
 function DateCmp($a, $b) {
-	//printf("comparting %s to %s <br />\n", $a[1], $b[1]);
+	// TODO: Function headers would be nice
+	// todo: rename this function
 	if ($a[1] == $b[1]) return 0;
 	return ($a[1] < $b[1]) ? -1 : 1;
 }
 
 function SortByDate(&$Files) {
+// TODO: get rid of this one line function.. 
 	usort($Files, 'DateCmp');
 }
 
@@ -492,6 +503,8 @@ function ReindexMessages($vm_mailbox, $vm_folder) {
    
 function format_phone($phone) {
 
+	// TODO: Function headers would be nice
+	
 	$phone = preg_replace("/[^0-9]/", "", $phone);  
 	if(strlen($phone) == 7)
       return preg_replace("/([0-9]{3})([0-9]{4})/", "$1-$2", $phone);
@@ -502,6 +515,9 @@ function format_phone($phone) {
 }
 
 function MonthToMonthNumber($p_month) {
+
+// TODO: Function headers would be nice
+
 	$ret = 0;
 	switch($p_month) {
 		case "Jan":

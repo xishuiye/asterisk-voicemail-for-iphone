@@ -26,6 +26,14 @@
 	require_once("i_functions.php");
 	require_once($g_smarty_class.'Smarty.class.php');
 	
+	session_start();
+	
+	// If we have a active cookie, skip this page
+	if (isset($_COOKIE['mailbox'])) {
+		$_SESSION['mailbox'] = $_COOKIE['mailbox'];
+		header("Location: main.php");
+	}
+	
 	// Local Variables
 	$debug = false;
 	$action = "";   
@@ -33,10 +41,8 @@
 	$password = "";
 	$login_message = "";
 	$login_success = false;
-	$p_mailbox = "";
-	$p_password = "";
-	if (isset($_POST['mailbox'])) $p_mailbox = $_POST['mailbox'];
-	if (isset($_POST['password'])) $p_password = $_POST['password'];
+	$p_mailbox = ""; if (isset($_POST['mailbox'])) $p_mailbox = $_POST['mailbox'];
+	$p_password = ""; if (isset($_POST['password'])) $p_password = $_POST['password'];
 	
 	// Add default_prefix if they provide 7 digits
 	if (strlen($p_mailbox) == 7) $p_mailbox = $g_default_prefix.$p_mailbox;
@@ -46,10 +52,9 @@
 	$smarty->compile_dir = $g_smarty_folder.'templates_c';
 	$smarty->cache_dir = $g_smarty_folder.'cache';
 	$smarty->config_dir = $g_smarty_folder.'configs';
-	
-	// Check for Login
 	$smarty->assign('mailbox', $p_mailbox);
 	
+	// Check for Login
 	if (strlen($p_mailbox) > 0) {
 		
 		if ($g_use_database) {
@@ -73,15 +78,7 @@
 			}			
 		}
 	}
-	
-	session_start();
-	
-	// If we have a active cookie, skip this page
-	if (isset($_COOKIE['mailbox'])) {
-		$_SESSION['mailbox'] = $_COOKIE['mailbox'];
-		header("Location: main.php");
-	}
-	
+		
 	// If we have successful login, leave this page
 	if ($login_success == true) {
 		setcookie("mailbox", $p_mailbox, time()+3600*24*14);
