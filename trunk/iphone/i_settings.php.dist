@@ -20,16 +20,23 @@
 	If not, see <http://www.gnu.org/licenses/>.
 */
 
-$g_debug = true;
+// Debug
+$g_debug = false;
+
+// Check for updates and notify the user if one is available
+$g_check_for_updates = true;
 
 // true for MySQL, false to use voicemail.conf for authentication
 $g_use_database = false;
+
+// Add default_prefix if they only provide 7 digits for login
+// This really only makes sense if you are have 10 digit mailbox numbers
+$g_default_prefix = "801";
 
 // voicemail.conf authentication
 $g_voicemail_conf_path = "/etc/asterisk/voicemail.conf";
 
 // Database Settings for authentication.
-$g_use_database = false;
 $g_db_host = "localhost";
 $g_db_name = "asterisk";
 $g_db_user = "";
@@ -47,11 +54,12 @@ $g_smarty_template_folder = "iphone/";
 
 // The URL where we can access the voicemail boxes through apache
 // ** This is not secure and will be removed on a future release **
-// Set this up in Apache with the command:
+// Set this up in your apache conf file with the command:
 // Alias /messages /var/spool/asterisk/voicemail/default
 $g_apache_messages_alias = "http://10.1.1.20/messages/";
 
-// The filesystem path where the voicemail files are found
+// The filesystem path where the voicemail folders are found
 $g_voicemail_context_path = "/var/spool/asterisk/voicemail/default/";
 
 ?>
+

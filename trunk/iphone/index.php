@@ -33,15 +33,13 @@
 	$password = "";
 	$login_message = "";
 	$login_success = false;
-	$default_prefix = "801";
-
 	$p_mailbox = "";
 	$p_password = "";
 	if (isset($_POST['mailbox'])) $p_mailbox = $_POST['mailbox'];
 	if (isset($_POST['password'])) $p_password = $_POST['password'];
 	
 	// Add default_prefix if they provide 7 digits
-	if (strlen($p_mailbox) == 7) $p_mailbox = $default_prefix.$p_mailbox;
+	if (strlen($p_mailbox) == 7) $p_mailbox = $g_default_prefix.$p_mailbox;
 	
 	$smarty = new Smarty();
 	$smarty->template_dir = $g_smarty_root.'templates';
@@ -56,40 +54,13 @@
 		
 		if ($g_use_database) {
 		
-			// Authenticate with Database
-			$my_db = new DB();
-			$my_db->construct($g_db_host, $g_db_name, $g_db_user, $g_db_pass);
-			$my_db->connect();
-			$my_db->select();
-			
-			$sql = "SELECT uniqueid,password,fullname,email FROM voicemail WHERE mailbox='$p_mailbox';";
-			if ($debug) echo("SQL: $sql<br />\n");
-			
-			$result = $my_db->query($sql);
-			if ($result) {
-				if (mysql_num_rows($result) > 0) {
-					$row = mysql_fetch_array($result);
-					$r_password = $row['password'];
-					$r_fullname = $row['fullname'];
-					$r_email = $row['email'];
-					
-					if ($p_password == $r_password) {
-						$login_success = true;
-					} else {
-						$login_success = false;
-						$smarty->assign('mailbox_error', 'Password Incorrect');
-					}
-				} else {
-					$login_success = false;
-					$smarty->assign('mailbox_error', 'Mailbox Incorrect');
-				}
+			// Authenticate with MySQL
+			if (doVoicemailConfAuthentication($p_mailbox, $p_password)) {
+				$login_success = true;
 			} else {
 				$login_success = false;
-				$smarty->assign('mailbox_error', 'Mailbox Incorrect');
+				$smarty->assign('mailbox_error', 'Login Incorrect');
 			}
-			
-			// Disconnect
-			$my_db->disconnect();
 			
 		} else {
 		
@@ -105,33 +76,20 @@
 	
 	session_start();
 	
-	// If we have a cookie, do our thing
+	// If we have a active cookie, skip this page
 	if (isset($_COOKIE['mailbox'])) {
-				
-		// Save Session from Cookie
 		$_SESSION['mailbox'] = $_COOKIE['mailbox'];
-		$_SESSION['fullname'] = $_COOKIE['fullname'];
-				
-		// Main Menu
 		header("Location: main.php");
 	}
 	
-	// If we have successful login, do our thing
+	// If we have successful login, leave this page
 	if ($login_success == true) {
-	
-		// Save Cookie
 		setcookie("mailbox", $p_mailbox, time()+3600*24*14);
-		setcookie("fullname", $r_fullname, time()+3600*24*14);
-		
-		// Save Session
 		$_SESSION['mailbox'] = $p_mailbox;
-		$_SESSION['fullname'] = $r_fullname;
-				
-		// Main Menu
 		header("Location: main.php");
 	}
 	
-	// If not logging in, show the template
+	// If we got this far, we're not logging in. Show the template
 	$smarty->display($g_smarty_template_folder.'login.tpl');
 	
 ?>
