@@ -24,7 +24,7 @@ For me, /var/lib/php5 needed to be chowned to asterisk for session_start() to wo
   * Install Smarty on your web server. Debian based systems apt-get install smarty
   * Install Lame on your web server (for mp3 creation). Debian based systems apt-get install lame
   * Install php-curl. Debian based systems apt-get install php5-curl
-  * Install iUI in a subfolder named 'iui' inside the application folder. I have the iphone app at /iphone/ so iUI is installed at /iphone/iui/
+  * Install iUI in a subfolder named 'iui' inside the application folder. I have the iphone app at /iphone/ so iUI is installed at /iphone/iui/ . iUI can be found here http://code.google.com/p/iui/ . I have a pre-release version of iUI that has MUCH smoother scrolling. Contact me if you need a copy, or just wait for them to update.
 
 == Install Smarty Templates in smarty templates folder ==
 
