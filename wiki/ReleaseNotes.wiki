@@ -1,4 +1,5 @@
 #summary Release Notes.
+#labels Featured
 
 = Asterisk Voicemail for iPhone =
 Copyright 2008 Chris Carey (http://chriscarey.com). 
