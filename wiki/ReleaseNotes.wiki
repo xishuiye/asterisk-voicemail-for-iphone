@@ -4,6 +4,10 @@
 Copyright 2008 Chris Carey (http://chriscarey.com). 
 This program is distributed under the terms of the GNU General Public License
 
+== Contact ==
+Contact me at chris.carey @ gmail.com
+or chris @ chriscarey.com if you need assistance.
+
 == Development Change Log ==
 
 ===2008-03-08 (v0.08 release)===
