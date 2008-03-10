@@ -1,4 +1,5 @@
 #summary Installation Guide.
+#labels Phase-Deploy,Featured
 
 ===Asterisk Voicemail for iPhone===
 Copyright 2008 Chris Carey (http://chriscarey.com). 
