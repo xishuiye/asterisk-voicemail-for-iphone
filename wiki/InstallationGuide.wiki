@@ -18,7 +18,10 @@ You need to set up a /messages/ Alias for listening to messages.
 In your apache conf file add:
   * Alias /messages /var/spool/asterisk/voicemail/default
 
-Change apache default user and group to asterisk. For the software to be able to delete and move messages, it must have read/write access to all the asterisk files. This accomplishes that.
+Change apache default user and group to asterisk. For the software to be able to delete and move messages, it must have read/write access to all the asterisk files. This accomplishes that. (Maybe we can get away with just changing the group on a later version?)
+
+  * User asterisk
+  * Group asterisk
 
 For me, /var/lib/php5 needed to be chowned to asterisk for session_start() to work. There may be other folders that need to be chowned to asterisk due to the web server running as asterisk. Check your apache error log for messages.
 
