@@ -1,11 +1,17 @@
 #summary Installation Guide.
 #labels Phase-Deploy,Featured
 
-Hundreds of downloads of the software, and not a single email requesting for help installing. Can the install instructions be that perfect? Can the software be that good? I really doubt it. Maybe my email is broken or something...
+
 
 ===Asterisk Voicemail for iPhone===
 Copyright 2008 Chris Carey (http://chriscarey.com). 
 This program is distributed under the terms of the GNU General Public License
+
+== Introcuction ==
+
+This software is not an iPhone app. It is a web application which is installed on your Asterisk server. You access the software by using your iPhone web browser and hitting a URL on your Asterisk server. 
+
+Hundreds of downloads of the software, and not a single email requesting for help installing. Can the install instructions be that perfect? Can the software be that good? I really doubt it. Maybe my email is broken or something...
 
 ==Install Guide==
 
@@ -13,6 +19,8 @@ Please excuse this sloppy install. Due to popular demand, I am releasing alpha
 versions of this software in order to get it cleaned up for a proper release.
 
 == Apache Setup ==
+
+  * Install Apache if it's not already installed.
 
 You need to set up a /messages/ Alias for listening to messages.
 In your apache conf file add:
