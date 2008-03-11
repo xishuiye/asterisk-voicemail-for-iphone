@@ -9,7 +9,7 @@ This program is distributed under the terms of the GNU General Public License
 
 == Introduction ==
 
-*This software is not an iPhone app.* It is a web application which is installed on your Asterisk server. You access the software by using your iPhone web browser and hitting a URL on your Asterisk server. 
+*This software is not a native iPhone app.* It is a web application which is installed on your Asterisk server. You access the software by using your iPhone web browser and hitting a URL on your Asterisk server. 
 
 == Apache Setup ==
 
