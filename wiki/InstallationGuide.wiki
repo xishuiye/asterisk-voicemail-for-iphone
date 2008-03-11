@@ -1,6 +1,8 @@
 #summary Installation Guide.
 #labels Phase-Deploy,Featured
 
+Hundreds of downloads of the software, and not a single email requesting for help installing. Can the install instructions be that perfect? Can the software be that good? I really doubt it. Maybe my email is broken or something...
+
 ===Asterisk Voicemail for iPhone===
 Copyright 2008 Chris Carey (http://chriscarey.com). 
 This program is distributed under the terms of the GNU General Public License
