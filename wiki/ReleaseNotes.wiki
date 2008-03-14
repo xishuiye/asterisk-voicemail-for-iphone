@@ -12,7 +12,7 @@ or *chris @ chriscarey.com* if you need assistance.
 == Development Change Log ==
 
 
-===2008-03-16 (v0.09 release)===
+===2008-03-16 (v0.09 future release)===
   * Font and color changes
   * Clean up the about page
 
