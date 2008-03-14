@@ -11,6 +11,11 @@ or *chris @ chriscarey.com* if you need assistance.
 
 == Development Change Log ==
 
+
+===2008-03-16 (v0.09 release)===
+  * Font and color changes
+  * Clean up the about page
+
 ===2008-03-08 (v0.08 release)===
   * DeleteMessages function was missing. Delete is now working
   * Move Messages is now working
