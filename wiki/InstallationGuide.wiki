@@ -16,8 +16,16 @@ This program is distributed under the terms of the GNU General Public License
   * Install Apache if it's not already installed.
 
 You need to set up a /messages/ Alias for listening to messages.
+
 In your apache conf file add:
+
   * Alias /messages /var/spool/asterisk/voicemail/default
+
+We can decrease the security issue by disallowing directory browsing:
+
+<Location /messages>
+  Options -Indexes
+</Location>
 
 Change apache default user and group to asterisk. For the software to be able to delete and move messages, it must have read/write access to all the asterisk files. This accomplishes that. (Maybe we can get away with just changing the group on a later version?)
 
