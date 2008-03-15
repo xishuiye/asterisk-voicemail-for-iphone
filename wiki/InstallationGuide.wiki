@@ -13,7 +13,7 @@ This program is distributed under the terms of the GNU General Public License
 
 == Apache Setup (version 0.09 and later) ==
 
-* Alias /iphone/listen /var/www/html/iphone/listen.php
+  * Alias /iphone/listen /var/www/html/iphone/listen.php
 
 <Location /iphone/listen>
   ForceType application/x-httpd-php
