@@ -63,7 +63,7 @@
 		if ($g_use_database) {
 		
 			// Authenticate with MySQL
-			if (doVoicemailConfAuthentication($p_mailbox, $p_password)) {
+			if (doMySqlAuthentication($p_mailbox, $p_password)) {
 				$login_success = true;
 			} else {
 				$login_success = false;

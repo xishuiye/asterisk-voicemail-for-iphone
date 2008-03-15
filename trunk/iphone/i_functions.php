@@ -18,14 +18,89 @@
     You should have received a copy of the GNU General Public License
     along with Asterisk Voicemail for iPhone.
 	If not, see <http://www.gnu.org/licenses/>.
-
-
+	
 	--	
 	
-	
-	This i_functions.php file is a collection of old functions I'd like re-rwritten top down
-
 */
+
+	require_once('i_settings.php');
+	require_once("i_functions.php");
+
+function doSendFileWithResume($file){
+
+	global $g_debug;
+	$range = "";
+	$bytes_to = 0;
+	$bytes_from = 0;
+	$how_many_bytes_to_send = 0;
+	
+    // See if the file exists
+    if (!is_file($file)) { die("<b>404 File not found!</b>"); }
+   
+    // Gather relevent info about file
+    $len = filesize($file);
+    $filename = basename($file);
+    $file_extension = strtolower(substr(strrchr($filename,"."),1));
+	$file_size = filesize($file);
+	
+    // Write some headers
+    header("Cache-Control:");
+    header("Cache-Control: public");
+    header("Content-Type: audio/mp3");
+    header('Content-Disposition: attachment; filename="'.$filename.'"');
+    header("Accept-Ranges: bytes");
+	
+	if ($g_debug) doDebugFile('HTTP_RANGE '.$_SERVER['HTTP_RANGE']);
+	
+    if(isset($_SERVER['HTTP_RANGE'])) {
+		
+        list($a, $range) = explode("=", $_SERVER['HTTP_RANGE']);
+		list($bytes_from, $bytes_to) = split("-", $range);
+		$how_many_bytes_to_send = $bytes_to - $bytes_from;
+		
+        header('HTTP/1.1 206 Partial Content');
+		header('Content-Range: bytes '.$bytes_from.'-'.$bytes_to.'/'.$file_size);
+        header('Content-Length: '.$file_size);
+		
+		if ($g_debug) doDebugFile('HTTP/1.1 206 Partial Content');
+		if ($g_debug) doDebugFile('Content-Range: bytes '.$bytes_from.'-'.$bytes_to.'/'.$file_size);
+		if ($g_debug) doDebugFile('Content-Length: '.$file_size);
+		if ($g_debug) doDebugFile("how_many_bytes_to_send: ".$how_many_bytes_to_send);
+		if ($g_debug) doDebugFile('Sending bits from '. $bytes_from .' to '.$bytes_to);
+    } else {
+      
+		$how_many_bytes_to_send = $file_size;
+		
+		header("HTTP/1.1 200 OK");
+        header('Content-Range: bytes 0-'.($file_size - 1).'/'.$file_size);
+        header("Content-Length: ".$file_size);
+		
+		if ($g_debug) doDebugFile("HTTP/1.1 200 OK");
+        if ($g_debug) doDebugFile('Content-Range: bytes 0-'.($file_size - 1).'/'.$file_size);
+        if ($g_debug) doDebugFile("Content-Length: ".$file_size);
+		if ($g_debug) doDebugFile("how_many_bytes_to_send: ".$how_many_bytes_to_send);
+		if ($g_debug) doDebugFile('Sending bits from 0 to '.$how_many_bytes_to_send);
+    }
+	
+    // Send the file
+    $fp=fopen($file, "rb");
+    fseek($fp, $bytes_from);
+	$i=0;
+	
+	while ($i < $how_many_bytes_to_send - 1) {
+        print(fread($fp, 1));
+		$i++;
+    }
+	fclose($fp);
+ exit;  
+}
+
+function doDebugFile($p_message) {
+	$fd_debug = fopen("debug.txt", "a");
+	$timestamp = date("Y-m-d G:i:s");
+	fwrite($fd_debug, $timestamp . " - " . $p_message . "\n");
+	fclose ($fd_debug);
+}
 
 function doSessionCheck(&$s_mailbox) {
 	
@@ -134,18 +209,25 @@ function doMySqlAuthentication($p_mailbox, $p_password) {
 
 function doVoicemailConfAuthentication($p_mailbox, $p_password) {
 
-// TODO: Function headers would be nice
+	// TODO: Function headers would be nice
 
 	global $g_voicemail_conf_path;
 	$success = false;
+	$mailbox = "";
+	$everything_else = "";
+	$password = "";
+	$name = "";
+	$email = "";
 	
 	// cat the voicemail.conf file, grep for mailbox
 	$cmd = "cat ".$g_voicemail_conf_path." | grep ".$p_mailbox;
 	$last_line = exec($cmd, $retvalue);
 	
 	// parse out the info - 1001 => 1001,Chris Carey,chris@chriscarey.com
-	list($mailbox, $everything_else) = split('=>', $last_line);
-	list($password,$name,$email) = split(",", $everything_else);
+	if ($last_line) {
+		list($mailbox, $everything_else) = split('=>', $last_line);
+		list($password,$name,$email) = split(",", $everything_else);
+	}
 	
 	// TODO: Check if $mailbox is not disabled
 	

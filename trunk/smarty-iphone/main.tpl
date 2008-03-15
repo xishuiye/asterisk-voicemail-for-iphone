@@ -48,20 +48,26 @@
 {foreach from=$messages_inbox key=myId item=i}
     <ul id="inbox_{$i.file}" title="Message Detail">
 		<li class="group">Action</li>
-        <li ><a href="{$apache_messages_alias}{$mailbox}/INBOX/{$i.file}.mp3" target="_self">Play Message</a></li>
-		<li ><a href="#inbox_{$i.file}_move" target="_self">Move Message</a></li>
-		<li ><a href="#delete" onclick="doDelete('{$i.file}','INBOX/{$i.file}');return true;">Delete Message</a></li>
-		<li ><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
+        <!-- li><a href="{$apache_messages_alias}{$mailbox}/INBOX/{$i.file}.mp3" target="_self">Play Message</a></li -->
+		<li><a href="listen/{$secret_key}/{$mailbox}/INBOX/{$i.file}.mp3" target="_self">Play Message</a></li>
+		<li><a href="#inbox_{$i.file}_move" target="_self">Move Message</a></li>
+		<li><a href="#inbox_{$i.file}_delete" target="_self">Delete Message</a></li>
+		<li><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
 		<li class="group">Detail</li>
 		<h3 style="margin-top:7px;padding-left:10px;">
-			<div style="text-align:center;color:darkblue;padding-right:20px;">
-			<div style="font-size:32px;">{$i.calleridname}</div>
-			<div style="font-size:32px;">{$i.calleridnumber}</div>
+			<div style="text-align:center;padding-right:20px;">
+			<div style="font-size:29px;color:darkblue;">{$i.calleridname}</div>
+			<div style="font-size:30px;margin-bottom:4px;">{$i.calleridnumber}</div>
 			<div style="font-size:24px;">Duration: {$i.duration} seconds</div>
 			<div style="font-size:24px;">{$i.datetimebetter}</div>
 			</div>
 		</h3>
     </ul> 
+	
+	<ul id="inbox_{$i.file}_delete" title="Delete Message">  
+		<li class="group">Verify Delete Message</li>
+		<li ><a href="#delete" onclick="doDelete('{$i.file}','INBOX/{$i.file}');return true;">Verify Delete</a></li>
+	</ul>
 	
 	<ul id="inbox_{$i.file}_move" title="Move Message">  
 		<li class="group">Move Message</li>
@@ -72,20 +78,26 @@
 {foreach from=$messages_old key=myId item=i}
     <ul id="old_{$i.file}" title="Message Detail">
 		<li class="group">Action</li>
-        <li ><a href="{$apache_messages_alias}{$mailbox}/Old/{$i.file}.mp3" target="_self">Play Message</a></li>
-		<li ><a href="#old_{$i.file}_move">Move Message</a></li>
-		<li ><a href="#delete" onclick="doDelete('{$i.file}','Old/{$i.file}');return true;">Delete Message</a></li>
-		<li ><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
+        <!-- li><a href="{$apache_messages_alias}{$mailbox}/Old/{$i.file}.mp3" target="_self">Play Message</a></li -->
+		<li><a href="listen/{$secret_key}/{$mailbox}/Old/{$i.file}.mp3" target="_self">Play Message</a></li>
+		<li><a href="#old_{$i.file}_move">Move Message</a></li>
+		<li><a href="#old_{$i.file}_delete" target="_self">Delete Message</a></li>
+		<li><a class="nothing" href="tel:{$i.calleridnumber}" target="_self">Call Back {$i.calleridnumber}</a></li>
 		<li class="group">Detail</li>
 		<h3 style="margin-top:7px;padding-left:10px;">
-		<div style="text-align:center;color:darkblue;padding-right:20px;">
-			<div style="font-size:32px;">{$i.calleridname}</div>
-			<div style="font-size:32px;">{$i.calleridnumber}</div>
+			<div style="text-align:center;padding-right:20px;">
+			<div style="font-size:29px;color:darkblue;">{$i.calleridname}</div>
+			<div style="font-size:30px;margin-bottom:4px;">{$i.calleridnumber}</div>
 			<div style="font-size:24px;">Duration: {$i.duration} seconds</div>
 			<div style="font-size:24px;">{$i.datetimebetter}</div>
 			</div>
 		</h3>
     </ul>  
+	
+	<ul id="old_{$i.file}_delete" title="Delete Message">  
+		<li class="group">Verify Delete Message</li>
+		<li ><a href="#delete" onclick="doDelete('{$i.file}','Old/{$i.file}');return true;">Verify Delete</a></li>
+	</ul>
 	
 	<ul id="old_{$i.file}_move" title="Move Message">  
 		<li class="group">Move Message</li>
@@ -97,12 +109,10 @@
 	<div id="about" class="panel" title="About Voicemail">
         <h2>{$app_name} v{$app_version}<br />
 		by Christopher Carey<br />
-		<a href="mailto:chris@chriscarey.com?Subject=Asterisk Voicemail for iPhone" target="_self">chris@chriscarey.com</a><br />
-		<br />
+		Homepage: <a href="http://chriscarey.com/projects/asterisk/iphone/" target="_blank">Click Here</a><br />
 {if $current_version}
-		Current Version: v{$current_version}<br /><br />
+		<br />Latest Version: v{$current_version}
 {/if}
-		Homepage: <a href="http://chriscarey.com/projects/asterisk/iphone/" target="_blank">Click here</a>
 		</h2>
     </div>
 	

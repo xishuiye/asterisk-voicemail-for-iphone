@@ -35,16 +35,19 @@
 	
 	// Application Variables
 	$g_app_name = "Asterisk Voicemail for iPhone";
-	$g_app_version = "0.08";
+	$g_app_version = "0.09";
 	$smarty->assign('app_name', $g_app_name);
 	$smarty->assign('app_version', $g_app_version);
 	
 	// Session
 	$s_mailbox = "";
-	$s_fullname = "";
 	doSessionCheck($s_mailbox);
 	$smarty->assign('mailbox', $s_mailbox);
 	$smarty->assign('mailbox_formatted', format_phone($s_mailbox));
+	
+	// Security for Media
+	$secret_key = md5($_SERVER['REMOTE_ADDR'] . $g_secret_salt);
+	$smarty->assign('secret_key', $secret_key);
 	
 	// Get messages (into an array)
 	$arr_messages_inbox = GetMessageArray("INBOX", $s_mailbox);
@@ -55,10 +58,7 @@
 	// Get Settings Screen info
 	$c_settings = GetSettings($s_mailbox);
 	$smarty->assign('c_settings', $c_settings);
-	
-	// Assign any global variables into Smarty
-	$smarty->assign('apache_messages_alias', $g_apache_messages_alias);
-	
+		
 	// Check for updates
 	if ($g_check_for_updates != false) { $current_version = doCheckVersion($g_app_version);
 	$smarty->assign('current_version', $current_version); }

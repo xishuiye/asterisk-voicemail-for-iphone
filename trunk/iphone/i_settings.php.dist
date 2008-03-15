@@ -20,21 +20,34 @@
 	If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Debug
+//================================================================================
+// General Settings
+//================================================================================
+
+// Turn on extra debugging (for developers)
 $g_debug = false;
 
 // Check for updates and notify the user if one is available
 $g_check_for_updates = true;
 
-// true for MySQL, false to use voicemail.conf for authentication
-$g_use_database = false;
+// The URL to your iphone web app	
+$g_app_root = "http://127.0.0.1/iphone/";
 
-// Add default_prefix if they only provide 7 digits for login
+// Add default prefix if they only provide 7 digits for login
 // This really only makes sense if you are have 10 digit mailbox numbers
 $g_default_prefix = "801";
 
-// voicemail.conf authentication
-$g_voicemail_conf_path = "/etc/asterisk/voicemail.conf";
+// The filesystem path where the voicemail folders are found
+$g_voicemail_context_path = "/var/spool/asterisk/voicemail/default/";
+
+$g_secret_salt = "change_me_to_anything";
+
+//================================================================================
+// Authentication Settings
+//================================================================================
+
+// true for MySQL, false to use voicemail.conf
+$g_use_database = false;
 
 // Database Settings for authentication.
 $g_db_host = "localhost";
@@ -42,23 +55,22 @@ $g_db_name = "asterisk";
 $g_db_user = "";
 $g_db_pass = "";
 
-// The URL to your iphone web app	
-$g_app_root = "http://10.1.1.20/iphone/";
+// Where can I find your voicemail.conf?
+$g_voicemail_conf_path = "/etc/asterisk/voicemail.conf";
 
-// Where on your filesystem is the smarty class file
+//================================================================================
+// Smarty Settings
+//================================================================================
+
+// Smarty: Where on your filesystem is the smarty class file
 $g_smarty_class = "/usr/local/lib/php/Smarty/";
 
-// Where on your filesystem are the other smarty folders (cache, templates)
-$g_smarty_folder = "/server/websites/mywebsite.com/smarty/"; 
+// Smarty: Where on your filesystem is the smarty templates
+$g_smarty_folder = "/var/www/smarty/";
 
-// The URL where we can access the voicemail boxes through apache
-// ** This is not secure and will be removed on a future release **
-// Set this up in your apache conf file with the command:
-// Alias /messages /var/spool/asterisk/voicemail/default
-$g_apache_messages_alias = "http://10.1.1.20/messages/";
+// Smarty: this is the folder under smarty/templates where you have the tpl files
+$g_smarty_template_folder = "iphone/"; 
 
-// The filesystem path where the voicemail folders are found
-$g_voicemail_context_path = "/var/spool/asterisk/voicemail/default/";
 
 ?>
 
