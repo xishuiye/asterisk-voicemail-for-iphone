@@ -16,7 +16,7 @@ or *chris @ chriscarey.com* if you need assistance.
   * Font and color changes
   * Clean up the about page
   * Fixed MySQL authentication
-  * Remove need for /messages alias in Apache (hopefully)
+  * Fixed the security hole!! Now supports streaming mp3 audio to the phone through a PHP page where security checks can be performed.
 
 ===2008-03-08 (v0.08 release)===
   * DeleteMessages function was missing. Delete is now working
