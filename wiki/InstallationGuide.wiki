@@ -23,6 +23,8 @@ Alias /iphone/listen /var/www/html/iphone/listen.php
   ForceType application/x-httpd-php
 </Location>
 }}}
+This PHP page provides the security checks (authentication) before serving up the voicemail message.
+
 == Apache Setup (Insecure Method - Pre-version 0.09) ==
 
 You need to set up a /messages/ Alias for listening to messages.
