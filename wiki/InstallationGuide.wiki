@@ -15,6 +15,7 @@ This program is distributed under the terms of the GNU General Public License
 
 Set up an Apache Alias. We're going to trick the iPhone into thinking /iphone/listen/ is a directory when in fact it is a PHP page. This way when we point to a URL such as /iphone/listen/INBOX/msg0001.mp3, the iPhone has no way of telling its not just directly requesting a mp3 file. Sneaky. *You will need to change both of the parameters on the Alias line to match your particular setup.*
 
+The listen.php page provides the security checks before serving up the voicemail message.
 
 {{{
 Alias /iphone/listen /var/www/html/iphone/listen.php
@@ -23,7 +24,8 @@ Alias /iphone/listen /var/www/html/iphone/listen.php
   ForceType application/x-httpd-php
 </Location>
 }}}
-This PHP page provides the security checks (authentication) before serving up the voicemail message.
+
+
 
 == Apache Setup (Insecure Method - Pre-version 0.09) ==
 
