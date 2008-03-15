@@ -27,7 +27,7 @@ Alias /iphone/listen /var/www/html/iphone/listen.php
 
 
 
-== Apache Setup (Insecure Method - Pre-version 0.09) ==
+== Apache Setup (Insecure Method - Version 0.08 and earlier) ==
 
 You need to set up a /messages/ Alias for listening to messages.
 
