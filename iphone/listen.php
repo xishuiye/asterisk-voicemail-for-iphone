@@ -20,71 +20,51 @@
 	If not, see <http://www.gnu.org/licenses/>.
 
 	=============================================================
+		
+	This file's purpose is to perform the session/security checks
+	and streaming of voicemails to the phone
 	
-	THIS FILE IS A MESS BUT HAS SOME SAMPLE CODE I WILL USE IN THE FUTURE
+	The iPhone apparently hands off the URL to play off to Quicktime
+	which starts a brand new session. This sucks because I can no longer
+	trust PHP session to handle our authentication verification.
 	
-	This file's purpose in the future will be to perform the session/security checks
-	for listening to voicemails
-	
-	We will change the "Play Message" links to something like:
-	listen.php?file=INBOX/msg0001.mp3
-	If the quicktime player does not like that, then we can use other apache trickery
-	such as: /listen/INBOX/msg0001.mp3
-	...and use a apache directive to force /listen/ to parse listen.php
+	What I ended up doing was combining the remote_addr with a secret salt
+	(configurable in the i_settings.php file), then md5 it. We compare the hash
+	with the hash provided and if they match, then we have verified that the
+	person is in fact at the same IP number. This limits the spoofing mailbox
+	vulnerability. You can only spoof if you are at the same IP that generated
+	the php page. If you have any better ideas please send them my way.
 	
 */
 	
-	// Catch Session
-	session_start();
+	require_once("i_db.php");
+	require_once("i_settings.php");
+	require_once("i_functions.php");
 	
-	// Since we have a question mark elsewhere in the URL, we have to catch like this:
-	// file_get.php/8016234127/Friends/msg0000.mp3
-	$requesturi = $_SERVER['REQUEST_URI'];
-	list($junk1, $path1, $file1, $mailbox, $folder, $file) = split("/", $requesturi);
-
-	// Check if they have permission
-	if ($mailbox != $vm_mailbox) {
-		echo("You do not have permission to the mailbox $mailbox");
+	if ($g_debug) {
+		doDebugFile('--------------------------------------------------------');
+		foreach($_SERVER as $name => $vaule) {
+			doDebugFile('SERVER:['.$name.']['.$vaule.']');
+		}
+	}
+	
+	// Parse out the Request URI to get the variables we need.
+	$garbage1="";$garbage2="";$garbage3="";$p_secret="";$p_mailbox="";$p_folder="";$p_file="";
+	list($garbage1, $garbage2, $garbage3, $p_secret, $p_mailbox, $p_folder, $p_file) = split("/", $_SERVER['REQUEST_URI']);
+	
+	// Hash their IP, with the secret salt, and compare.
+	$secret_key = md5($_SERVER['REMOTE_ADDR'] . $g_secret_salt);
+	if ($secret_key != $p_secret) {
+		// Failed the security test, exit
+		if ($g_debug) doDebugFile('listen.php - FAILED SECURITY TEST!');
 		exit;
 	}
+		
+	// Compile the full file path
+	$sound_file = $g_voicemail_context_path . $p_mailbox . "/" . $p_folder . "/" . $p_file;
+	if ($g_debug) doDebugFile('listen.php - Calling doSendFileWithResume ' . $sound_file);
+	
+	// Send the file down to the iPhone
+	doSendFileWithResume($sound_file);
 
-	// Globals
-	$basepath = "/var/spool/asterisk/voicemail/default";
-
-	if ($file) {
-	
-		// Make full file path
-		$fullpath = $basepath . "/" . $mailbox . "/" . $folder . "/" . $file;
-	
-		
-		
-		// Check if file exists
-		if (file_exists($fullpath)) {
-		
-			// Send Headers
-			header('Content-Type: audio/mp3');
-			header('Content-Length: ' . filesize($fullpath));
-			header("Content-Transfer-Encoding: binary");
-			header('Content-Disposition: attachment; filename="'.$file.'"');
-			header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
-			
-			//$timestamp = time();
-			//$timenextweek = time() + (24 * 60 * 60);
-			//header('Last-Modified: '.gmdate('D, d M Y H:i:s', $timenextweek).' GMT'); 
-		
-			// URL should be something like 8015551212/Friends/msg0001.mp3
-			// We need to prepend /var/spool/asterisk/voicemail/default/
-			
-			// Send File
-			@readfile($fullpath) or die("Cant Read");
-			
-		} else {
-			// Send error message
-			printf("File %s does not exist", $file);
-			
-			// Maybe it would be cool to play some other mp3 sound file on error???
-		}
-		
-	}
-	
 ?>
