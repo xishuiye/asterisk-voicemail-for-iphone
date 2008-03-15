@@ -11,7 +11,7 @@ This program is distributed under the terms of the GNU General Public License
 
 *This software is not a native iPhone app.* It is a web application which is installed on your Asterisk server. You access the software by using your iPhone web browser and hitting a URL on your Asterisk server. 
 
-== Apache Setup (version 0.09 and later) ==
+== Apache Setup (Secure Method - Version 0.09 and later) ==
 
 Set up an Apache Alias. We're going to trick the iPhone into thinking /iphone/listen/ is a directory when in fact it is a PHP page. This way when we point to a URL such as /iphone/listen/INBOX/msg0001.mp3, the iPhone has no way of telling its not just directly requesting a mp3 file. Sneaky.
 
@@ -23,7 +23,7 @@ Alias /iphone/listen /var/www/html/iphone/listen.php
   ForceType application/x-httpd-php
 </Location>
 }}}
-== Apache Setup (pre version 0.09) ==
+== Apache Setup (Insecure Method - Pre-version 0.09) ==
 
 You need to set up a /messages/ Alias for listening to messages.
 
