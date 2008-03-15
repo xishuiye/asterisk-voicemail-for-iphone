@@ -34,10 +34,7 @@ You need to set up a /messages/ Alias for listening to messages.
 In your apache conf file add:
 {{{
 Alias /messages /var/spool/asterisk/voicemail/default
-}}}
 
-We can decrease the security issue by disallowing directory browsing:
-{{{
 <Location /messages>
   Options -Indexes
 </Location>
