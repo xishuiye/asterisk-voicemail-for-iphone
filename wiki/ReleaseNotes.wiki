@@ -17,7 +17,7 @@ or *chris @ chriscarey.com* if you need assistance.
   * Clean up the about page
   * Fixed MySQL authentication
   * Fixed the security hole!! Now supports streaming mp3 audio to the phone through a PHP page where security checks can be performed. Check the Installation Guide for updated Apache instructions.
-  * Reorganize the i_settings.php file
+  * Reorganize the i_settings.php file. Added g_secret_salt. You will need to grab a copy of the new i_settings.php.dist file and overwrite your own. And, of course, configure the new file.
 
 ===2008-03-08 (v0.08 release)===
   * DeleteMessages function was missing. Delete is now working
