@@ -17,6 +17,7 @@ Set up an Apache Alias. We're going to trick the iPhone into thinking /iphone/li
 
 The listen.php page provides the security checks before serving up the voicemail message.
 
+In your apache conf file add:
 {{{
 Alias /iphone/listen /var/www/html/iphone/listen.php
 
