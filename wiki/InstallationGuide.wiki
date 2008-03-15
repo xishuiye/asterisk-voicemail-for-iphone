@@ -13,7 +13,7 @@ This program is distributed under the terms of the GNU General Public License
 
 == Apache Setup (version 0.09 and later) ==
 
-Set up a Apache Alias. We're going to trick the iPhone into thinking /iphone/listen/ is a directory when in fact it is a PHP page. This way when we point to a URL such as /iphone/listen/INBOX/msg0001.mp3, the iPhone has no way of telling its not just directly requesting a mp3 file. Sneaky.
+Set up an Apache Alias. We're going to trick the iPhone into thinking /iphone/listen/ is a directory when in fact it is a PHP page. This way when we point to a URL such as /iphone/listen/INBOX/msg0001.mp3, the iPhone has no way of telling its not just directly requesting a mp3 file. Sneaky.
 
   * Alias /iphone/listen /var/www/html/iphone/listen.php
 
