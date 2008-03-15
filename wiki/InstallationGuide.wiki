@@ -11,9 +11,14 @@ This program is distributed under the terms of the GNU General Public License
 
 *This software is not a native iPhone app.* It is a web application which is installed on your Asterisk server. You access the software by using your iPhone web browser and hitting a URL on your Asterisk server. 
 
-== Apache Setup ==
+== Apache Setup (version 0.09 and later) ==
 
-  * Install Apache if it's not already installed.
+Alias /iphone/listen /var/www/html/iphone/listen.php
+<Location /iphone/listen>
+  ForceType application/x-httpd-php
+</Location>
+
+== Apache Setup (pre version 0.09) ==
 
 You need to set up a /messages/ Alias for listening to messages.
 
@@ -26,6 +31,8 @@ We can decrease the security issue by disallowing directory browsing:
 <Location /messages>
   Options -Indexes
 </Location>
+
+== More Apache Setup ==
 
 Change apache default user and group to asterisk. For the software to be able to delete and move messages, it must have read/write access to all the asterisk files. This accomplishes that. (Maybe we can get away with just changing the group on a later version?)
 
