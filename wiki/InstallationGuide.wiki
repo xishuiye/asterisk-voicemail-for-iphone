@@ -30,7 +30,7 @@ Alias /iphone/listen /var/www/html/iphone/listen.php
 
 == Apache Setup (Insecure Method - Version 0.08 and earlier) ==
 
-If you downloaded the latest version of this software, you should skip this portion. It is no longer necessary and is a security risk.
+*If you downloaded the latest version of this software, you should skip this portion. It is no longer necessary and is a security risk.*
 
 You need to set up a /messages/ Alias for listening to messages.
 
