@@ -13,6 +13,8 @@ or *chris @ chriscarey.com* if you need assistance.
 
 ===2008-04-05 (v0.1 release)===
 
+  * Embedding mp3 instead of linking to it. This is a much better integration. No longer have to hit the back button after listening to messages to jump back from quicktime to the browser.
+  * Some graphics updates. Added some asterisk logos
   * clear whitespace at the end of i_settings.php - which is causing a "headers already sent' error
   * Handle voicemail.conf => issue. Filter out the > then parse by =, so we handle both styles (also test with spaces around = and no spaces.
   * if debug.txt doesnt exist, create it.
