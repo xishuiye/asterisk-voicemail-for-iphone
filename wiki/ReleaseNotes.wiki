@@ -11,6 +11,12 @@ or *chris @ chriscarey.com* if you need assistance.
 
 == Development Change Log ==
 
+===2008-04-05 (v0.1 release)===
+
+  * clear whitespace at the end of i_settings.php - which is causing a "headers already sent' error
+  * Handle voicemail.conf => issue. Filter out the > then parse by =, so we handle both styles (also test with spaces around = and no spaces.
+  * if debug.txt doesnt exist, create it.
+  * fix doSendFileWithResume() with user SML's fixes
 
 ===2008-03-15 (v0.09 release)===
   * Font and color changes
