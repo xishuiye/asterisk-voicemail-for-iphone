@@ -10,7 +10,7 @@
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    Asterisk Voicemail for iPhone is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -56,11 +56,16 @@ function doSendFileWithResume($file){
 		
         list($a, $range) = explode("=", $_SERVER['HTTP_RANGE']);
 		list($bytes_from, $bytes_to) = split("-", $range);
+		if ($bytes_to < 1) $bytes_to = $file_size;       
 		$how_many_bytes_to_send = $bytes_to - $bytes_from;
+		if ($how_many_bytes_to_send <> $file_size) $how_many_bytes_to_send++;
+		if ($g_debug) doDebugFile('Bytes From: '.$bytes_from);
+        if ($g_debug) doDebugFile('Bytes To: '.$bytes_to);
 		
         header('HTTP/1.1 206 Partial Content');
 		header('Content-Range: bytes '.$bytes_from.'-'.$bytes_to.'/'.$file_size);
-        header('Content-Length: '.$file_size);
+        // header('Content-Length: '.$file_size);
+        header('Content_Length: '.$how_many_bytes_to_send);
 		
 		if ($g_debug) doDebugFile('HTTP/1.1 206 Partial Content');
 		if ($g_debug) doDebugFile('Content-Range: bytes '.$bytes_from.'-'.$bytes_to.'/'.$file_size);
@@ -87,16 +92,23 @@ function doSendFileWithResume($file){
     fseek($fp, $bytes_from);
 	$i=0;
 	
-	while ($i < $how_many_bytes_to_send - 1) {
+	while ($i < $how_many_bytes_to_send) {
         print(fread($fp, 1));
 		$i++;
     }
 	fclose($fp);
+	if ($g_debug) doDebugFile("Sent Byte Count: ".$i);
  exit;  
 }
 
 function doDebugFile($p_message) {
-	$fd_debug = fopen("debug.txt", "a");
+	$filename = "debug.txt";
+	// if the file doesn't exist, let's create it
+	if (!file_exists($filename)) {
+		$fh = fopen($filename, 'w') or die("can't open debug file");
+		fclose($fh);
+	}
+	$fd_debug = fopen($filename, "a");
 	$timestamp = date("Y-m-d G:i:s");
 	fwrite($fd_debug, $timestamp . " - " . $p_message . "\n");
 	fclose ($fd_debug);
@@ -225,8 +237,13 @@ function doVoicemailConfAuthentication($p_mailbox, $p_password) {
 	
 	// parse out the info - 1001 => 1001,Chris Carey,chris@chriscarey.com
 	if ($last_line) {
-		list($mailbox, $everything_else) = split('=>', $last_line);
+		$last_line = str_replace(">", "", $last_line); // Strip out the >
+		list($mailbox, $everything_else) = split('=', $last_line);
+		$mailbox = trim($mailbox);
 		list($password,$name,$email) = split(",", $everything_else);
+		$password = trim($password);
+		$name = trim($name);
+		$email = trim($email);
 	}
 	
 	// TODO: Check if $mailbox is not disabled

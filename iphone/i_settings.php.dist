@@ -10,7 +10,7 @@
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    Asterisk Voicemail for iPhone is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -33,14 +33,15 @@ $g_check_for_updates = true;
 // The URL to your iphone web app	
 $g_app_root = "http://127.0.0.1/iphone/";
 
-// Add default prefix if they only provide 7 digits for login
+// Add a default prefix if they only provide 7 digits for login
 // This really only makes sense if you are have 10 digit mailbox numbers
 $g_default_prefix = "801";
 
 // The filesystem path where the voicemail folders are found
 $g_voicemail_context_path = "/var/spool/asterisk/voicemail/default/";
 
-$g_secret_salt = "change_me_to_anything";
+// A secret code to help randomize the crypto. Just set it to some random word...
+$g_secret_salt = "cat";
 
 //================================================================================
 // Authentication Settings
@@ -52,7 +53,7 @@ $g_use_database = false;
 // Database Settings for authentication.
 $g_db_host = "localhost";
 $g_db_name = "asterisk";
-$g_db_user = "";
+$g_db_user = "root";
 $g_db_pass = "";
 
 // Where can I find your voicemail.conf?
@@ -71,6 +72,4 @@ $g_smarty_folder = "/var/www/smarty/";
 // Smarty: this is the folder under smarty/templates where you have the tpl files
 $g_smarty_template_folder = "iphone/"; 
 
-
 ?>
-
