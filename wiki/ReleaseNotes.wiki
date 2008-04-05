@@ -11,7 +11,7 @@ or *chris @ chriscarey.com* if you need assistance.
 
 == Development Change Log ==
 
-===2008-04-05 (v0.1 release)===
+===2008-04-05 (v0.10 release)===
 
   * Embedding mp3 instead of linking to it. This is a much better integration. No longer have to hit the back button after listening to messages to jump back from quicktime to the browser.
   * Some graphics updates. Added some asterisk logos
