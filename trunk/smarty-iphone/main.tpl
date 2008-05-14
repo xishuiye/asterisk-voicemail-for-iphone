@@ -9,6 +9,7 @@
 <style type="text/css" media="screen">@import "iui/iui.css";</style>
 <script type="application/x-javascript" src="iui/iui.js"></script>
 <script type="application/x-javascript" src="main.js"></script>
+<link rel="apple-touch-icon" href="images/asterisk-voicemail-iphone.png" />
 </head>
 <body>
 
