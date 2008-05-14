@@ -22,6 +22,7 @@ input.login {
 }
 </style>
 {/literal}
+<link rel="apple-touch-icon" href="images/asterisk-voicemail-iphone.png" />
 </head>
 
 <body>

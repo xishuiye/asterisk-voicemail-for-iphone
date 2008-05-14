@@ -35,7 +35,7 @@
 	
 	// Application Variables
 	$g_app_name = "Asterisk Voicemail for iPhone";
-	$g_app_version = "0.1";
+	$g_app_version = "0.11";
 	$smarty->assign('app_name', $g_app_name);
 	$smarty->assign('app_version', $g_app_version);
 	
