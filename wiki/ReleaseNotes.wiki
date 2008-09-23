@@ -12,6 +12,10 @@ Contact me at *chris.carey @ gmail.com* if you need assistance.
 
 ===2008-09-22 (v0.12 release)===
 
+The main thing to mention about this release is that it is the easiest yet to install. Everything is included in the zip file. Unzip, configure i_settings.php, configure Apache, and GO!
+
+You may notice that the Installation Guide is significantly smaller now.
+
   * Backed off the 'embed' of sound files into the page. It never worked that well. Now with iPhone firmware 2.0, the quicktime automagically exits after playing the sound file.
   * Added Icons
   * Fixed PHP4 complaint about & in my loops
