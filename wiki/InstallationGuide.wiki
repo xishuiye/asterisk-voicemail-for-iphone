@@ -15,7 +15,7 @@ This program is distributed under the terms of the GNU General Public License
 
 PHP4 or PHP5 are both supported.
 
-== Apache Setup (Secure Method - Version 0.09 and later) ==
+== Apache Setup (The Alias) ==
 
 Set up an Apache Alias. We're going to trick the iPhone into thinking /iphone/listen/ is a directory when in fact it is a PHP page. This way when we point to a URL such as /iphone/listen/INBOX/msg0001.mp3, the iPhone has no way of telling its not just directly requesting a mp3 file. Sneaky. *You will need to change both of the parameters on the Alias line to match your particular setup.*
 
@@ -30,7 +30,7 @@ Alias /iphone/listen /var/www/html/iphone/listen.php
 </Location>
 }}}
 
-== More Apache Setup ==
+== More Apache Setup (User and Group) ==
 
 Change apache default user and group to asterisk. For the software to be able to delete and move messages, it must have read/write access to all the asterisk files. This accomplishes that. (Maybe we can get away with just changing the group on a later version?)
 
