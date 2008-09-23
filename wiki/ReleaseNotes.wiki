@@ -16,7 +16,8 @@ Contact me at *chris.carey @ gmail.com* if you need assistance.
   * Added Icons
   * Fixed PHP4 complaint about & in my loops
   * Started on prerequisite check in check.php
-  * Include preconfigured Smarty as a subfolder, preconfigured in i_settings.php
+  * Include preconfigured Smarty
+  * Include a preconfigured iUI
   * Moved smarty templates to smarty/templates
   * Add a ? after listen link. This seems to make more phones happy
 
