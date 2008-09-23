@@ -11,6 +11,15 @@ or *chris @ chriscarey.com* if you need assistance.
 
 == Development Change Log ==
 
+===2008-09-22 (v0.12 release)===
+
+* Added Icons
+* Fixed PHP4 complaint about & in my loops
+* Started on prerequisite check in check.php
+* Include preconfigured Smarty as a subfolder, preconfigured in i_settings.php
+* Moved smarty templates to smarty/templates
+* Add a ? after listen link. This seems to make more phones happy
+
 ===2008-04-05 (v0.10 release)===
 
   * Embedding mp3 instead of linking to it. This is a much better integration. No longer have to hit the back button after listening to messages to jump back from quicktime to the browser.
