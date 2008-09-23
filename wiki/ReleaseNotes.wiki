@@ -10,6 +10,11 @@ Contact me at *chris.carey @ gmail.com* if you need assistance.
 
 == Development Change Log ==
 
+===2008-09-23 (v0.13 release)===
+
+  * Changed listen link to listen.php, removing the need for Apache Alias
+  * Added g_debug_path. Debug path was hard coded which caused crash if not exist.
+
 ===2008-09-22 (v0.12 release)===
 
 The main thing to mention about this release is that it is the easiest yet to install. Everything is included in the zip file. Unzip, configure i_settings.php, configure Apache, and GO!
