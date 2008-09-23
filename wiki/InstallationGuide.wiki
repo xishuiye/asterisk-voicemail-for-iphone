@@ -9,11 +9,11 @@ This program is distributed under the terms of the GNU General Public License
 
 == Introduction ==
 
-*This software is not a native iPhone app.* It is a web application which is installed on your Asterisk server. You access the software by using your iPhone web browser and hitting a URL on your Asterisk server. 
+*This software is not a native iPhone app.* It is a web application which is installed on your Asterisk server. You access the software by using your iPhone web browser and accessing a URL on your Asterisk server. 
 
 == PHP Version ==
 
-You need PHP5 installed. Upgrade those PHP4 installations!
+PHP4 or PHP5 are both supported.
 
 == Apache Setup (Secure Method - Version 0.09 and later) ==
 
@@ -30,22 +30,6 @@ Alias /iphone/listen /var/www/html/iphone/listen.php
 </Location>
 }}}
 
-
-
-== Apache Setup (Insecure Method - Version 0.08 and earlier) ==
-
-*If you downloaded the latest version of this software, you should skip this portion. It is no longer necessary and is a security risk.*
-
-You need to set up a /messages/ Alias for listening to messages.
-
-In your apache conf file add:
-{{{
-Alias /messages /var/spool/asterisk/voicemail/default
-
-<Location /messages>
-  Options -Indexes
-</Location>
-}}}
 == More Apache Setup ==
 
 Change apache default user and group to asterisk. For the software to be able to delete and move messages, it must have read/write access to all the asterisk files. This accomplishes that. (Maybe we can get away with just changing the group on a later version?)
@@ -57,29 +41,12 @@ For me, /var/lib/php5 needed to be chowned to asterisk for session_start() to wo
 
 == Dependency Install ==
 
-  * Install Smarty on your web server. Download Smarty at: http://www.smarty.net/ or Debian based systems: *apt-get install smarty*
   * Install Lame on your web server (for mp3 creation). Debian based systems: *apt-get install lame*
-  * Install php-curl. Debian based systems: *apt-get install php5-curl*
-  * Install iUI in a subfolder named 'iui' inside the application folder. I have the voicemail for iphone app at /iphone/ so iUI is installed at /iphone/iui/ . iUI can be found here http://code.google.com/p/iui/ . I have a pre-release version of iUI that has MUCH smoother scrolling. Contact me if you need a copy, or just wait for the project to update.
-
-== Install Smarty Templates in smarty templates folder ==
-
-  * templates/iphone/login.tpl
-  * templates/iphone/main.tpl
-
+  * Install php-curl IF you have 'check for updates' enabled. Debian based systems: *apt-get install php5-curl*
 
 ==Install files in the application folder==
 
-  * iphone/i_db.php
-  * iphone/i_functions.php
-  * iphone/i_settings.php
-  * iphone/index.php
-  * iphone/listen.php
-  * iphone/logout.php
-  * iphone/main.js
-  * iphone/main.php
-  * iphone/readme.txt
-  * iphone/install.txt
+After you unzip the asterisk-voicemail-for-iphone.zip file, go ahead and rename that folder to *iphone* and move it to /var/www/ or wherever is your web root.
 
 ==Customize i_settings.php==
 
