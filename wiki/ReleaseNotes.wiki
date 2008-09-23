@@ -12,6 +12,7 @@ Contact me at *chris.carey @ gmail.com* if you need assistance.
 
 ===2008-09-22 (v0.12 release)===
 
+  * Backed off the 'embed' of sound files into the page. It never worked that well. Now with iPhone firmware 2.0, the quicktime automagically exits after playing the sound file.
   * Added Icons
   * Fixed PHP4 complaint about & in my loops
   * Started on prerequisite check in check.php
